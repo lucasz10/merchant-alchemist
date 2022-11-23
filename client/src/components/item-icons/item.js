@@ -1,5 +1,5 @@
 import React from 'react';
-import temp from '../../assets/sprites/temp64x64.png';
+import Sprites from '../../assets/sprites/index';
 
 function Item()
 {
@@ -19,7 +19,7 @@ function Item()
         <div className='item_el_container' style={styles.item_el_container}>
             <img 
                 className='item_img'
-                src={temp}
+                src={Sprites['temp']}
                 alt={""}
             >
                 {/* TODO: Include information such as quantity of item if viewing in potion making screen */}

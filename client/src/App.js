@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Item from './components/item-icons/item';
+import Item from './components/item-icons/Item';
 
 function App() {
     return (
