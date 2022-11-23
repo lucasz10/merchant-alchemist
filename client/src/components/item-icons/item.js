@@ -7,10 +7,18 @@ function Item()
     {
         item_el_container: 
         {
+            // Sizing/placement rules
+            display: 'inline-block',
+            margin: 10,
             width: 'fit-content',
+            // Visual rules
             border: '8px solid burlywood',
             borderStyle: 'groove',
             backgroundColor: 'blanchedalmond'
+        },
+        item_img:
+        {
+            padding: 4
         }
     }
 
@@ -19,6 +27,7 @@ function Item()
         <div className='item_el_container' style={styles.item_el_container}>
             <img 
                 className='item_img'
+                style={styles.item_img}
                 src={Sprites['temp']}
                 alt={""}
             >
