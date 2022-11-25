@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Item from './item-icons/item';
 
 function Store()
 {
+    // Track the quantity of items to purchase
+    const [quantity, setQuantity] = useState(0);
+
+    const increment_quantity = () => setQuantity(quantity + 1);
+    const decrement_quantity = () => {
+        // Do not let quantity be less than 0
+        if (quantity <= 0) return;
+
+        setQuantity(quantity - 1);
+    }
+
     return (
         <div id='store_container'>
             <div id='store_display'>
@@ -27,10 +38,10 @@ function Store()
                     <div className='purchase_menu'>
                         <div>
                             <h4>How many?</h4>
-                            <button type='button'>+</button>
-                            <button type='button'>-</button>
+                            <button type='button' onClick={increment_quantity}>+</button>
+                            <button type='button' onClick={decrement_quantity}>-</button>
                         </div>
-                        <button type='button'>Purchase</button>
+                        <button type='button'>Purchase {quantity}?</button>
                     </div>
                 </section>
             </div>
