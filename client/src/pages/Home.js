@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-const Home = () => {};
+function Home() {
+
+  return (
+    <div>
+      Not implemented yet
+    </div>
+  );
+}
 
 export default Home;
