@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
 import Item from './item-icons/item';
+// TESTING: Ingredient Data contained in an array, replace with GET request to database in the future
+const ingredients =
+[
+    {
+        ingredientName: 'Three-eyed Frog',
+        desc: 'For some reason, staring at this frog is oddly calming.',
+        buyPrice: 30
+    },
+    {
+        ingredientName: 'Ironwood Acorn',
+        desc: 'Originating from the kingdom of Valesia, these nuts are hard to crack!',
+        buyPrice: 10
+    }
+];
 
 function Store()
 {
     // Track the quantity of items to purchase
     const [quantity, setQuantity] = useState(0);
+    // Track currently selected item to purchase
+    const [selectedItem, setItem] = useState('')
 
     const increment_quantity = () => setQuantity(quantity + 1);
     const decrement_quantity = () => {
@@ -41,7 +57,7 @@ function Store()
                             <button type='button' onClick={increment_quantity}>+</button>
                             <button type='button' onClick={decrement_quantity}>-</button>
                         </div>
-                        <button type='button'>Purchase {quantity}?</button>
+                        <button type='button'>Purchase {quantity} {selectedItem}?</button>
                     </div>
                 </section>
             </div>

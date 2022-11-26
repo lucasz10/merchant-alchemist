@@ -29,7 +29,7 @@ function Item()
                 className='item_img'
                 style={styles.item_img}
                 src={Sprites['temp']}
-                alt={""}
+                alt={Sprites['temp'].alt}
             >
                 {/* TODO: Include information such as quantity of item if viewing in potion making screen */}
             </img>
