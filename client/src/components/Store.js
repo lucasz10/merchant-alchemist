@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Item from './item-icons/item';
+import Sprites from '../assets/sprites';
 // TESTING: Ingredient Data contained in an array, replace with GET request to database in the future
 const ingredients =
 [
@@ -40,13 +41,20 @@ function Store()
                 </section>
                 {/* Ingredient Selection Screen (purchasable ingredients) */}
                 <section>
-                    <Item />
-                    <Item />
+                    {ingredients.map(({ ingredientName }) => 
+                        <div 
+                            key={ingredientName} 
+                            style={{ display: 'inline-block' }}
+                            onClick={() => setItem(ingredientName)}
+                        >
+                            <Item {...Sprites[ingredientName]} />
+                        </div>
+                    )}
                 </section>
                 {/* Purchase Window (item sprite, name, description, quantity selection, and purchase button) */}
                 <section>
                     <div className='item_information'>
-                        <h3>[Item Name]</h3>
+                        <h3>{selectedItem}</h3>
                         <p>
                             [Item Description]
                         </p>
