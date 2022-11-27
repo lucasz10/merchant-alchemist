@@ -20,6 +20,24 @@ const ingredients =
 
 function Store()
 {
+    // TESTING: Gold count as a state, replace default value with GET request to database in the future
+    const [gold_count, setGoldCount] = useState(600);
+
+    // Verify transaction and make a server request to purchase the item
+    const handleItemPurchase = () => {
+        // Reject if there are no items to be purchased
+        if (quantity <= 0) return;
+
+        const TOTAL_COST = currentIngredient.buyPrice * quantity;
+
+        // Reject if current gold is insufficient
+        if (TOTAL_COST > gold_count) return;
+        else 
+        {
+            setGoldCount(gold_count - TOTAL_COST);
+        }
+    }
+
     // Track the quantity of items to purchase
     const [quantity, setQuantity] = useState(0);
     // Track currently selected item to purchase
@@ -44,7 +62,7 @@ function Store()
                 {/* Top Section (heading and gold count) */}
                 <section>
                     <h1>Ingredients</h1>
-                    <div className='gold_counter'>{} gold</div>
+                    <div className='gold_counter'>{gold_count} gold</div>
                 </section>
                 {/* Ingredient Selection Screen (purchasable ingredients) */}
                 <section>
@@ -53,7 +71,7 @@ function Store()
                         <div 
                             key={ingredientName} 
                             style={{ display: 'inline-block' }}
-                            onClick={() => setItem(`${_id}`)}
+                            onClick={() => setItem(_id)}
                         >
                             {/* Generate item sprite accessed by the ingredient's name */}
                             <Item {...Sprites[ingredientName]} />
@@ -74,7 +92,9 @@ function Store()
                             <button type='button' onClick={increment_quantity}>+</button>
                             <button type='button' onClick={decrement_quantity}>-</button>
                         </div>
-                        <button type='button'>Purchase {quantity} {currentIngredient.ingredientName}?</button>
+                        <button type='button' onClick={handleItemPurchase}>
+                            Purchase{quantity > 0 ? ` (x${quantity}) ${currentIngredient.ingredientName}` : ''}?
+                        </button>
                     </div>
                 </section>
             </div>
