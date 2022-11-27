@@ -1,14 +1,12 @@
 import React from 'react';
-import Sprites from '../../assets/sprites/index';
 
-function Item()
+function Item({ img, alt })
 {
     const styles =
     {
         item_el_container: 
         {
-            // Sizing/placement rules
-            display: 'inline-block',
+            // Sizing rules
             margin: 10,
             width: 'fit-content',
             // Visual rules
@@ -28,8 +26,8 @@ function Item()
             <img 
                 className='item_img'
                 style={styles.item_img}
-                src={Sprites['temp']}
-                alt={""}
+                src={img}
+                alt={alt}
             >
                 {/* TODO: Include information such as quantity of item if viewing in potion making screen */}
             </img>

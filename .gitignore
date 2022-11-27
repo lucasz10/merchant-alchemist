@@ -13,6 +13,7 @@ package-lock.json
 /build
 
 # misc
+.eslintcache
 .DS_Store
 .env
 .env.local
