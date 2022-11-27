@@ -5,11 +5,13 @@ import Sprites from '../assets/sprites';
 const ingredients =
 [
     {
+        _id: '1',
         ingredientName: 'Three-eyed Frog',
         desc: 'For some reason, staring at this frog is oddly calming.',
         buyPrice: 30
     },
     {
+        _id: '2',
         ingredientName: 'Ironwood Acorn',
         desc: 'Originating from the kingdom of Valesia, these nuts are hard to crack!',
         buyPrice: 10
@@ -21,7 +23,7 @@ function Store()
     // Track the quantity of items to purchase
     const [quantity, setQuantity] = useState(0);
     // Track currently selected item to purchase
-    const [selectedItem, setItem] = useState('')
+    const [selectedItemID, setItem] = useState('');
 
     const increment_quantity = () => setQuantity(quantity + 1);
     const decrement_quantity = () => {
@@ -30,6 +32,11 @@ function Store()
 
         setQuantity(quantity - 1);
     }
+
+    // Return currently selected item properties from its id
+    const currentIngredient = selectedItemID === '' 
+        ? { ingredientName: '', desc: '', buyPrice: 1 } 
+        : ingredients.filter(ingredient => ingredient._id === selectedItemID)[0];
 
     return (
         <div id='store_container'>
@@ -41,12 +48,14 @@ function Store()
                 </section>
                 {/* Ingredient Selection Screen (purchasable ingredients) */}
                 <section>
-                    {ingredients.map(({ ingredientName }) => 
+                    {/* Generate an Item icon for each ingredient for sale */}
+                    {ingredients.map(({ _id, ingredientName}) => 
                         <div 
                             key={ingredientName} 
                             style={{ display: 'inline-block' }}
-                            onClick={() => setItem(ingredientName)}
+                            onClick={() => setItem(`${_id}`)}
                         >
+                            {/* Generate item sprite accessed by the ingredient's name */}
                             <Item {...Sprites[ingredientName]} />
                         </div>
                     )}
@@ -54,9 +63,9 @@ function Store()
                 {/* Purchase Window (item sprite, name, description, quantity selection, and purchase button) */}
                 <section>
                     <div className='item_information'>
-                        <h3>{selectedItem}</h3>
+                        <h3>{currentIngredient.ingredientName}</h3>
                         <p>
-                            [Item Description]
+                            {currentIngredient.desc}
                         </p>
                     </div>
                     <div className='purchase_menu'>
@@ -65,7 +74,7 @@ function Store()
                             <button type='button' onClick={increment_quantity}>+</button>
                             <button type='button' onClick={decrement_quantity}>-</button>
                         </div>
-                        <button type='button'>Purchase {quantity} {selectedItem}?</button>
+                        <button type='button'>Purchase {quantity} {currentIngredient.ingredientName}?</button>
                     </div>
                 </section>
             </div>
