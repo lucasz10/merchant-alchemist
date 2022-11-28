@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
 // TESTING: Owned Ingredient Data contained in an array, replace with GET request to database in the future
-const owned_ingredients =
+const INGREDIENTS_OWNED =
 [
     {
         _id: '3',
@@ -26,6 +26,9 @@ const owned_ingredients =
 
 function Brewing()
 {
+    // Track the quantity of each item owned
+    const [owned_ingredients, updateQuantities] = useState(INGREDIENTS_OWNED);
+
     // Track ingredients to use for brewing potion
     const [ingredients, setIngredients] = useState([]);
 
@@ -48,6 +51,12 @@ function Brewing()
         else 
         {
             console.log('You made a potion!');
+
+            // Clear out the currently selected ingredients
+            setIngredients([]);
+            
+            // TODO: Update the quantities using the response from the server
+            // updateQuantities()
         }
     }
 
@@ -74,8 +83,17 @@ function Brewing()
                 </section>
                 {/* Brewing Menu (selected ingredient and potion preview) */}
                 <section>
-                    <div className='ingredient_slot'>
-                        
+                    <div className='ingredient_slot' style={{ border: '1px solid black' }}>
+                        {/* Generate an Item icon for each owned ingredient */}
+                        {ingredients.map(({ ingredientName }) => 
+                            <div 
+                                key={`${ingredientName}_slotted`} 
+                                style={{ display: 'inline-block' }}
+                            >
+                                {/* Generate item sprite accessed by the ingredient's name */}
+                                <Item {...Sprites[ingredientName]} />
+                            </div>
+                        )}
                     </div>
                     <div className='potion_preview'>
                         <button type='button' onClick={handleItemPurchase}>
