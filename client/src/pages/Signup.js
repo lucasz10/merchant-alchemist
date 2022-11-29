@@ -2,84 +2,69 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import background from '../assets/backgrounds/homepage.png';
 
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+
+import Auth from '../utils/auth';
 
 const Signup = () => {
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+    const [formState, setFormState] = useState({
+      username: '',
+      email: '',
+      password: '',
+    });
 
-  const handleInputChange = (e) => {
-    // Getting the value and name of the input which triggered the change
-    const { target } = e;
-    const inputType = target.name;
-    const inputValue = target.value;
-
-    const isEmail = (email) => /^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/.test(email);
-
-    // Based on the input type, we set the state of either email, username, and password
-    if (inputType === 'username') {
-      setUsername(inputValue);
-      if (!inputValue) {
-        setErrorMessage('Please enter a username')
-      } else {
-        setErrorMessage('');
+    const [addUser, { error, data }] = useMutation(ADD_USER);
+  
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+  
+      setFormState({
+        ...formState,
+        [name]: value,
+      });
+    };
+  
+    const handleFormSubmit = async (event) => {
+      event.preventDefault();
+      console.log(formState);
+  
+      try {
+        const { data } = await addUser({
+          variables: { ...formState },
+        });
+  
+        Auth.login(data.addUser.token);
+      } catch (e) {
+        console.error(e);
       }
-    }
-
-    if (inputType === 'email') {
-      if (!isEmail(inputValue)) {
-        setErrorMessage('Please enter a valid email')
-      } else {
-        setEmail(inputValue);
-        setErrorMessage('');
-      }
-    }
-
-    if (inputType === 'password') {
-      setPassword(inputValue);
-      if (!inputValue) {
-        setErrorMessage('Please enter a password')
-      } else {
-        setErrorMessage('');
-      }
-    }
-
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    // If everything goes according to plan, we want to clear out the input after a successful registration.
-    setUsername('');
-    setPassword('');
-  };
+    };
 
   const style = {
     backgroundImage: `url(${background})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    'max-width': '100vw',
+    maxWidth: '100vw',
     height: '100vh',
   }
 
   return (
-    <div className="container contact" style={style}>
+    <div className="container contact" style={style}>f 
     <div className="row">
       <div className="col-md-6 offset-md-3">
         <div className="card my-5">
-          <form className="card-body cardbody-color p-lg-5" id="signup-form">
+          <form className="card-body cardbody-color p-lg-5" id="signup-form" onSubmit={handleFormSubmit}>
             <div className="text-center">
               <h2 className="title pb-4">Welcome to Merchant Alchemist!</h2>
             </div>
             <div className="mb-3">
             <input
               className="form-control"
-              value={username}
+              value={formState.username}
               name="username"
-              onChange={handleInputChange}
+              onChange={handleChange}
               type="username"
               placeholder="username"
             />
@@ -87,9 +72,9 @@ const Signup = () => {
             <div className="mb-3">
             <input
               className="form-control"
-              value={email}
+              value={formState.email}
               name="email"
-              onChange={handleInputChange}
+              onChange={handleChange}
               type="email"
               placeholder="email"
             />
@@ -97,16 +82,16 @@ const Signup = () => {
             <div className="mb-3">
               <input
                 className="form-control"
-                value={password}
+                value={formState.password}
                 name="password"
-                onChange={handleInputChange}
+                onChange={handleChange}
                 type="password"
                 placeholder="password"
               />
             </div>
-            {errorMessage && (
+            {error && (
               <div>
-                <p className="error-text">{errorMessage}</p>
+                <p className="error-text">{error.message}</p>
               </div>
             )}
             <div className="text-center">
@@ -120,7 +105,7 @@ const Signup = () => {
       </div>
     </div>
   </div>
- )
-}
+ );
+};
 
 export default Signup;

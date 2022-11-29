@@ -1,49 +1,46 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import background from '../assets/backgrounds/homepage.png';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
+
+import Auth from '../utils/auth';
 
 
 const Login = () => {
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  const handleInputChange = (e) => {
-    // Getting the value and name of the input which triggered the change
-    const { target } = e;
-    const inputType = target.name;
-    const inputValue = target.value;
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-    const isEmail = (email) => /^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/.test(email);
-
-    // Based on the input type, we set the state of either email, username, and password
-    if (inputType === 'username') {
-      setUsername(inputValue);
-      if (!inputValue) {
-        setErrorMessage('Please enter your username')
-      } else {
-        setErrorMessage('');
-      }
-    }
-
-    if (inputType === 'password') {
-      setPassword(inputValue);
-      if (!inputValue) {
-        setErrorMessage('Please enter your password')
-      } else {
-        setErrorMessage('');
-      }
-    }
-
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+    try {
+      const { data } = await login({
+        variables: { ...formState },
+      });
 
-    // If everything goes according to plan, we want to clear out the input after a successful registration.
-    setUsername('');
-    setPassword('');
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+
+    // clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
   };
 
   const style = {
@@ -67,26 +64,26 @@ const Login = () => {
             <div className="mb-3">
             <input
               className="form-control"
-              value={username}
-              name="username"
-              onChange={handleInputChange}
-              type="username"
-              placeholder="username"
+              value={formState.email}
+              name="email"
+              onChange={handleChange}
+              type="email"
+              placeholder="email"
             />
             </div>
             <div className="mb-3">
               <input
                 className="form-control"
-                value={password}
+                value={formState.password}
                 name="password"
-                onChange={handleInputChange}
+                onChange={handleChange}
                 type="password"
                 placeholder="password"
               />
             </div>
-            {errorMessage && (
+            {error && (
               <div>
-                <p className="error-text">{errorMessage}</p>
+                <p className="error-text">{error.message}</p>
               </div>
             )}
             <div className="text-center">
