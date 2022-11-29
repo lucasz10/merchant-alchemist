@@ -4,6 +4,7 @@ const { User, Ingredient, Potion, Store } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
+  // Getting the information from the database
   Query: {
     users: async () => {
       return User.find();
@@ -11,8 +12,14 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username });
     },
+    store: async (parent, { storeId }) => { 
+      return Store.findOne({ _id: storeId });
+    },
+    ingredients: async () => {
+      return Ingredient.find();
+    }
   },
-
+  // Changing the information in the database
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
@@ -35,7 +42,7 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
-    },
+    }
   },
 };
 
