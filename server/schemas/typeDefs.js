@@ -11,22 +11,23 @@ const typeDefs = gql`
   type Store {
     _id: ID
     storeName: String
-    inventory: Array
+    potions: [String]
+    ingredients: [String]
   }
 
   type Potion {
     _id: ID
     potionName: String
     desc: String
-    reqIngredients: Array
-    sellPrice: Number
+    reqIngredients: [String]
+    sellPrice: Int
   }
 
   type Ingredient {
     _id: ID
     ingredientName: String
     desc: String
-    buyPrice: Number
+    buyPrice: Int
   }
 
   type Auth {

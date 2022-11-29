@@ -7,18 +7,14 @@ const storeSchema = new Schema({
     unique: true,
     trim: true,
   },
-  inventory: [
+  potions: [
     {
-      potions: [
-        {
-          type: String,
-        },
-      ],
-      ingredients: [
-        {
-          type: String,
-        },
-      ],
+      type: String,
+    },
+  ],
+  ingredients: [
+    {
+      type: String,
     },
   ],
 });

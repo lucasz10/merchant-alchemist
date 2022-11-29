@@ -10,9 +10,12 @@ const potionSchema = new Schema({
   desc: {
     type: String,
   },
-  reqIngredients: {
-    type: Array,
-  },
+  reqIngredients: [
+    {
+      type: String,
+    },
+  ],
+
   sellPrice: {
     type: Number,
   },
