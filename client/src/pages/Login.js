@@ -49,7 +49,7 @@ const Login = () => {
     backgroundRepeat: 'no-repeat',
     maxWidth: '100vw',
     height: '100vh',
-  }
+  };
 
   return (
     <div className="container pt-5" style={style}>
@@ -81,9 +81,9 @@ const Login = () => {
               />
             </div>
             {error && (
-              <div>
-                <p className="error-text">{error.message}</p>
-              </div>
+            <div>
+              <p className="error-text">{error.message}</p>
+            </div>
             )}
             <div className="text-center">
               <button type="submit" className="btn btn-color px-5 mb-1 w-100 card-text" onClick={handleFormSubmit}>Login</button>
@@ -96,7 +96,7 @@ const Login = () => {
       </div>
     </div>
   </div>
- )
-}
+ );
+};
 
 export default Login;

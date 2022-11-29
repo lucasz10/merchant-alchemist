@@ -48,7 +48,7 @@ const Signup = () => {
     backgroundRepeat: 'no-repeat',
     maxWidth: '100vw',
     height: '100vh',
-  }
+  };
 
   return (
     <div className="container pt-5" style={style}>
