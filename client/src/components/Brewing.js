@@ -31,8 +31,24 @@ function Brewing()
 
     // Track ingredients to use for brewing potion
     const [ingredients, setIngredients] = useState([]);
+    const addIngredient = (ingredient) => setIngredients([ingredient]);
 
-    const addIngredient = (ingredientID) => setIngredients([ingredientID]);
+    // Track potion effect expected from given ingredients
+    const [potionEffect, setPotionEffect] = useState(() => <div>No potion yet...</div>);
+
+    // Select a potion preview from the selected ingredients
+    React.useEffect(() => {
+        // Check that ingredients have been selected
+        if (ingredients.length < 1) return;
+
+        switch(ingredients[0].ingredientName) 
+        {
+            case 'Crimson Herb':        setPotionEffect('Swiftness');   break;
+            case 'Gyrfalcon Feathers':  setPotionEffect('Silencing');   break;
+            case 'Opal Stone':          setPotionEffect('Insight');     break;
+            default:                    setPotionEffect('potion-temp'); break;
+        }
+    }, [ingredients]);
 
     // Verify transaction and make a server request to brew the potion
     const handlePotionBrewing = () => {
@@ -97,7 +113,7 @@ function Brewing()
                     </div>
                     <div className='potion_preview'>
                         <button type='button' onClick={handlePotionBrewing}>
-                            {ingredients.length > 0 ? <Item {...Sprites['potion-temp']} /> : ''}
+                            {ingredients.length > 0 ? <Item {...Sprites[potionEffect]} /> : ''}
                         </button>
                     </div>
                 </section>
