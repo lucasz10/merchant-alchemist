@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import background from '../assets/backgrounds/homepage.png';
+import background from '../assets/backgrounds/landing.png';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
@@ -51,11 +51,11 @@ const Signup = () => {
   }
 
   return (
-    <div className="container contact" style={style}>f 
-    <div className="row">
-      <div className="col-md-6 offset-md-3">
-        <div className="card my-5">
-          <form className="card-body cardbody-color p-lg-5" id="signup-form" onSubmit={handleFormSubmit}>
+    <div className="container pt-5" style={style}>
+    <div className="row pt-5 pr-5" id="signup">
+      <div className="col-md-6 offset-md-4">
+        <div className="card my-5 w-75">
+          <form className="card-body cardbody-color p-lg-5" onSubmit={handleFormSubmit}>
             <div className="text-center">
               <h2 className="title pb-4">Welcome to Merchant Alchemist!</h2>
             </div>
@@ -98,7 +98,7 @@ const Signup = () => {
               <button type="submit" className="btn btn-color px-5 mb-1 w-100 card-text" onClick={handleFormSubmit}>Sign Up</button>
             </div>
             <div className="text-center">
-              <Link to="/login"  className="text-center">Already have an account?</Link>
+              <Link to="/login" className="text-center" id="signup">Already have an account?</Link>
             </div>
           </form>
         </div>

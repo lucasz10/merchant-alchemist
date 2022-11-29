@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import background from '../assets/backgrounds/homepage.png';
+import background from '../assets/backgrounds/landing.png';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
-
 
 const Login = () => {
 
@@ -48,18 +47,18 @@ const Login = () => {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    'max-width': '100vw',
+    maxWidth: '100vw',
     height: '100vh',
   }
 
   return (
-    <div className="container" style={style}>
-    <div className="row">
-      <div className="col-md-6 offset-md-3">
-        <div className="card my-5">
-          <form className="card-body cardbody-color p-lg-5" id="signup-form">
+    <div className="container pt-5" style={style}>
+    <div className="row pt-5 pr-5" id="login">
+      <div className="col-md-6 offset-md-4">
+        <div className="card my-5 w-75">
+          <form className="card-body cardbody-color p-lg-5">
             <div className="text-center">
-              <h2 className="title pb-4">Welcome to Merchant Alchemist!</h2>
+              <h2 className="pb-4">Welcome to Merchant Alchemist!</h2>
             </div>
             <div className="mb-3">
             <input
