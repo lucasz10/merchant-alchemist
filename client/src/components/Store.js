@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
+import background from '../assets/backgrounds/ingredients.png';
 // Import Ingredient/Gold Count Queries
 import { QUERY_INGREDIENTS, QUERY_GOLDCOUNT } from '../utils/queries'
 
@@ -43,8 +44,17 @@ function Store()
     // NOTE: DOES NOT WORK - Calculate total cost based on quantity of item selected
     // React.useEffect(() => setItem({ ...selectedItem, totalCost: selectedItem.quantity * selectedItem.buyPrice }), [selectedItem]);
 
+    const style = {
+      backgroundImage: `url(${background})`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      maxWidth: '100vw',
+      height: '100vh',
+    };
+
     return (
-        <div id='store_container'>
+        <div id='store_container' style={style}>
             <div id='store_display'>
                 {/* Top Section (heading and gold count) */}
                 <section>

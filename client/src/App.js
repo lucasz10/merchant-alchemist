@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Main from './pages/Main';
 import Store from './components/Store';
 import Brewing from './components/Brewing';
 import './App.css';
@@ -56,6 +57,10 @@ function App() {
             element={<Signup />}
           />
           <Route
+            path="/main"
+            element={<Main />}
+          />
+          <Route
             path="/store"
             element={<Store />}
           />
@@ -66,7 +71,7 @@ function App() {
         </Routes>
       </Router>
     </ApolloProvider>
-    )
+  );
 }
 
 export default App;
