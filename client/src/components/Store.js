@@ -1,25 +1,15 @@
 import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
-// TESTING: Ingredient Data contained in an array, replace with GET request to database in the future
-const ingredients =
-[
-    {
-        _id: '1',
-        ingredientName: 'Three-eyed Frog',
-        desc: 'For some reason, staring at this frog is oddly calming.',
-        buyPrice: 30
-    },
-    {
-        _id: '2',
-        ingredientName: 'Ironwood Acorn',
-        desc: 'Originating from the kingdom of Valesia, these nuts are hard to crack!',
-        buyPrice: 10
-    }
-];
+// Import Ingredient/Gold Count Queries
+import { QUERY_INGREDIENTS, QUERY_GOLDCOUNT } from '../utils/queries'
 
 function Store()
 {
+    // GET all ingredients in the database
+    const { loading, data } = useQuery(QUERY_INGREDIENTS);
+
     // TESTING: Gold count as a state, replace default value with GET request to database in the future
     const [gold_count, setGoldCount] = useState(600);
 
@@ -54,7 +44,7 @@ function Store()
     // Return currently selected item properties from its id
     const currentIngredient = selectedItemID === '' 
         ? { ingredientName: '', desc: '', buyPrice: 1 } 
-        : ingredients.filter(ingredient => ingredient._id === selectedItemID)[0];
+        : data.ingredients.filter(ingredient => ingredient._id === selectedItemID)[0];
 
     return (
         <div id='store_container'>
@@ -67,7 +57,9 @@ function Store()
                 {/* Ingredient Selection Screen (purchasable ingredients) */}
                 <section>
                     {/* Generate an Item icon for each ingredient for sale */}
-                    {ingredients.map(({ _id, ingredientName}) => 
+                    {loading 
+                        ? <div>Rummaging for ingredients...</div>
+                        : (data.ingredients.map(({ _id, ingredientName}) => 
                         <div 
                             key={ingredientName} 
                             style={{ display: 'inline-block' }}
@@ -76,7 +68,7 @@ function Store()
                             {/* Generate item sprite accessed by the ingredient's name */}
                             <Item {...Sprites[ingredientName]} />
                         </div>
-                    )}
+                    ))}
                 </section>
                 {/* Purchase Window (item sprite, name, description, quantity selection, and purchase button) */}
                 <section>
