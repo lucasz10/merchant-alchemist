@@ -38,6 +38,10 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
+    userIngredients(username: String!): [Ingredient]
+    stores: [Store]
+    store(storeId: ID!): Store
+    ingredients: [Ingredient]!
   }
 
   type Mutation {
@@ -46,4 +50,7 @@ const typeDefs = gql`
   }
 `;
 
+  // potions: [Potion]
+  // potion(potionName: String!): Potion
+  // ingredient(ingredientName: String!): Ingredient
 module.exports = typeDefs;
