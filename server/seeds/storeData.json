@@ -1,0 +1,17 @@
+[
+    {
+        "storeName": "Full Metal Alchemist",
+        "potions": ["Vigor", "Endurance", "Vanishing", "Strength", "Awakening"],
+        "ingredients": ["Gold Gel", "Opal Stone", "Mandrake Root", "Gyrfalcon Feathers", "Moon Pearls"]
+    },
+    {
+        "storeName": "Potion Brewery",
+        "potions": ["Endurance", "Brilliance", "Vanishing", "Resilience", "Insight"],
+        "ingredients": ["Dragon Scale", "Gold Gel", "Copper Gel", "Three-eyed Frog", "Opal Stone"]
+    },
+    {
+        "storeName": "Max Effects Potions",
+        "potions": ["Silencing", "Brilliance", "Strength", "Resilience", "Endurance"],
+        "ingredients": ["Amber Powder", "Gyrfalcon Feathers", "Three-eyed Frog", "Copper Gel", "Crimson Herb"]
+    }
+]
