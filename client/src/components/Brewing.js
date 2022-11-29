@@ -35,7 +35,7 @@ function Brewing()
     const addIngredient = (ingredientID) => setIngredients([ingredientID]);
 
     // Verify transaction and make a server request to brew the potion
-    const handleItemPurchase = () => {
+    const handlePotionBrewing = () => {
         // Reject if there are no ingredients selected
         if (ingredients.length <= 0) return;
 
@@ -96,7 +96,7 @@ function Brewing()
                         )}
                     </div>
                     <div className='potion_preview'>
-                        <button type='button' onClick={handleItemPurchase}>
+                        <button type='button' onClick={handlePotionBrewing}>
                             {ingredients.length > 0 ? <Item {...Sprites['potion-temp']} /> : ''}
                         </button>
                     </div>
