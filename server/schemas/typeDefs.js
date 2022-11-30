@@ -11,9 +11,21 @@ const typeDefs = gql`
   type Store {
     _id: ID
     storeName: String
-    potions: [String]
-    ingredients: [String]
+    potions: [CurrentPotion]!
+    ingredients: [CurrentIngredient]!
     goldCount: Int
+  }
+
+  type CurrentPotion {
+    _id: ID
+    databaseId: String
+    owned: Int
+  }
+
+  type CurrentIngredient {
+    _id: ID
+    databaseId: String
+    owned: Int
   }
 
   type Potion {
