@@ -23,7 +23,7 @@ const Main = () => {
       <div className="card text-center" style={styles.card}>
         <div className="card-body">
           <h5 className="card-title">Purchase Ingredients</h5>
-            <Link to="/store" class="btn btn-warning">Purchase Ingredients</Link>
+            <Link to="/store" class="btn btn-secondary">Purchase Ingredients</Link>
         </div>
       </div>
       <div className="card text-center" style={styles.card}>
@@ -35,7 +35,7 @@ const Main = () => {
       <div className="card text-center" style={styles.card}>
         <div className="card-body">
           <h5 className="card-title">Open Shop</h5>
-            <Link to="" class="btn btn-primary">Open Shop</Link>
+            <Link to="/shop" class="btn btn-primary">Open Shop</Link>
         </div>
       </div>
     </div>

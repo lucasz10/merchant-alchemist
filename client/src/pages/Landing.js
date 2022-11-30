@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import background from '../assets/backgrounds/landing.png';
 import MovingComponent from 'react-moving-text'
 
-
 const Landing = () => {
 
   const style = {
