@@ -9,7 +9,10 @@ const storeSchema = new Schema({
   },
   potions: [
     {
-      databaseId: {
+      potionName: {
+        type: String,
+      },
+      desc: {
         type: String,
       },
       owned: {
@@ -19,7 +22,10 @@ const storeSchema = new Schema({
   ],
   ingredients: [
     {
-      databaseId: {
+      ingredientName: {
+        type: String,
+      },
+      desc: {
         type: String,
       },
       owned: {
