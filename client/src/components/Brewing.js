@@ -35,7 +35,7 @@ function Brewing()
     const addIngredient = (ingredient) => setIngredients([ingredient]);
 
     // Track potion effect expected from given ingredients
-    const [potionEffect, setPotionEffect] = useState(() => <div>No potion yet...</div>);
+    const [potionEffect, setPotionEffect] = useState('');
 
     // Select a potion preview from the selected ingredients
     React.useEffect(() => {
@@ -44,19 +44,19 @@ function Brewing()
 
         switch(ingredients[0].ingredientName) 
         {
-            case 'Copper Gel':          setPotionEffect('Endurance');   break;
-            case 'Silver Gel':          setPotionEffect('Wisdom');      break;
-            case 'Gold Gel':            setPotionEffect('Vigor');       break;
-            case 'Crimson Herb':        setPotionEffect('Swiftness');   break;
-            case 'Gyrfalcon Feathers':  setPotionEffect('Silencing');   break;
-            case 'Moon Pearls':         setPotionEffect('Vanishing');   break;
-            case 'Amber Powder':        setPotionEffect('Strength');    break;
-            case 'Ironwood Acorn':      setPotionEffect('Resilience');  break;
-            case 'Dragon Scale':        setPotionEffect('Belligerence');break;
-            case 'Three-eyed Frog':     setPotionEffect('Awakening');   break;
-            case 'Opal Stone':          setPotionEffect('Insight');     break;
-            case 'Mandrake Root':       setPotionEffect('Brilliance');  break;
-            default:                    setPotionEffect('potion-temp'); break;
+            case 'Copper Gel':          setPotionEffect('Endurance');       break;
+            case 'Silver Gel':          setPotionEffect('Wisdom');          break;
+            case 'Gold Gel':            setPotionEffect('Vigor');           break;
+            case 'Crimson Herb':        setPotionEffect('Swiftness');       break;
+            case 'Gyrfalcon Feathers':  setPotionEffect('Silencing');       break;
+            case 'Moon Pearls':         setPotionEffect('Vanishing');       break;
+            case 'Amber Powder':        setPotionEffect('Strength');        break;
+            case 'Ironwood Acorn':      setPotionEffect('Resilience');      break;
+            case 'Dragon Scale':        setPotionEffect('Belligerence');    break;
+            case 'Three-eyed Frog':     setPotionEffect('Awakening');       break;
+            case 'Opal Stone':          setPotionEffect('Insight');         break;
+            case 'Mandrake Root':       setPotionEffect('Brilliance');      break;
+            default:                    setPotionEffect('unknown-potion');  break;
         }
     }, [ingredients]);
 
@@ -167,13 +167,13 @@ function Brewing()
                                 )
                             :   <div style={styles.ingredient}>
                                     {/* Generate item sprite accessed by the ingredient's name */}
-                                    <Item {...Sprites['temp']} />
+                                    <Item {...Sprites['placeholder-ingredient']} />
                                 </div>
                         }
                     </div>
                     <div className='potion_preview' style={styles.potion_preview}>
-                        <button type='button' onClick={handlePotionBrewing}>
-                            {ingredients.length > 0 ? <Item {...Sprites['potion-temp']} /> : <Item {...Sprites['temp']} />}
+                        <button type='button' onClick={handlePotionBrewing} title={potionEffect !== '' ? `Potion of ${potionEffect}` : 'No potion yet...'}>
+                            {ingredients.length > 0 ? <Item {...Sprites[potionEffect]} /> : <Item {...Sprites['placeholder-potion']} />}
                         </button>
                     </div>
                 </section>
