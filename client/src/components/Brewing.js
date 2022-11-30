@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
+import background from '../assets/backgrounds/brewing.png';
 // TESTING: Owned Ingredient Data contained in an array, replace with GET request to database in the future
 const INGREDIENTS_OWNED =
 [
@@ -76,8 +77,17 @@ function Brewing()
         }
     }
 
+    const style = {
+      backgroundImage: `url(${background})`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      maxWidth: '100vw',
+      height: '100vh',
+    };
+
     return (
-        <div id='brewing_container'>
+        <div id='brewing_container' style={style}>
             <div id='brewing_display'>
                 {/* Top Section (heading and gold count) */}
                 <section>

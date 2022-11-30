@@ -1,63 +1,60 @@
 import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
-// TESTING: Ingredient Data contained in an array, replace with GET request to database in the future
-const ingredients =
-[
-    {
-        _id: '1',
-        ingredientName: 'Three-eyed Frog',
-        desc: 'For some reason, staring at this frog is oddly calming.',
-        buyPrice: 30
-    },
-    {
-        _id: '2',
-        ingredientName: 'Ironwood Acorn',
-        desc: 'Originating from the kingdom of Valesia, these nuts are hard to crack!',
-        buyPrice: 10
-    }
-];
+import background from '../assets/backgrounds/ingredients.png';
+// Import Ingredient/Gold Count Queries
+import { QUERY_INGREDIENTS, QUERY_GOLDCOUNT } from '../utils/queries'
 
 function Store()
 {
+    // GET all ingredients in the database
+    const { loading, data } = useQuery(QUERY_INGREDIENTS);
+
     // TESTING: Gold count as a state, replace default value with GET request to database in the future
     const [gold_count, setGoldCount] = useState(600);
 
     // Verify transaction and make a server request to purchase the item
     const handleItemPurchase = () => {
         // Reject if there are no items to be purchased
-        if (quantity <= 0) return;
+        if (selectedItem.quantity <= 0) return;
 
-        const TOTAL_COST = currentIngredient.buyPrice * quantity;
+        const TOTAL_COST = selectedItem.quantity * selectedItem.buyPrice
 
         // Reject if current gold is insufficient
         if (TOTAL_COST > gold_count) return;
         else 
         {
             setGoldCount(gold_count - TOTAL_COST);
+            // Reset selected item and quantity
+            setItem({ _id: '', quantity: 0, buyPrice: 0, totalCost: 0, ingredientName: '', desc: '' });
         }
     }
+    
+    const [selectedItem, setItem] = useState({ _id: '', quantity: 0, buyPrice: 0, totalCost: 0, ingredientName: '', desc: '' });
 
-    // Track the quantity of items to purchase
-    const [quantity, setQuantity] = useState(0);
-    // Track currently selected item to purchase
-    const [selectedItemID, setItem] = useState('');
-
-    const increment_quantity = () => setQuantity(quantity + 1);
+    const increment_quantity = () => selectedItem._id !== '' ? setItem({ ...selectedItem, quantity: selectedItem.quantity + 1 }) : null;
     const decrement_quantity = () => {
-        // Do not let quantity be less than 0
-        if (quantity <= 0) return;
+        // Do not let quantity be less than 0 or no ingredient selected
+        if (selectedItem.quantity <= 0 || selectedItem._id === '') return;
 
-        setQuantity(quantity - 1);
+        setItem({ ...selectedItem, quantity: selectedItem.quantity - 1 });
     }
 
-    // Return currently selected item properties from its id
-    const currentIngredient = selectedItemID === '' 
-        ? { ingredientName: '', desc: '', buyPrice: 1 } 
-        : ingredients.filter(ingredient => ingredient._id === selectedItemID)[0];
+    // NOTE: DOES NOT WORK - Calculate total cost based on quantity of item selected
+    // React.useEffect(() => setItem({ ...selectedItem, totalCost: selectedItem.quantity * selectedItem.buyPrice }), [selectedItem]);
+
+    const style = {
+      backgroundImage: `url(${background})`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      maxWidth: '100vw',
+      height: '100vh',
+    };
 
     return (
-        <div id='store_container'>
+        <div id='store_container' style={style}>
             <div id='store_display'>
                 {/* Top Section (heading and gold count) */}
                 <section>
@@ -67,23 +64,26 @@ function Store()
                 {/* Ingredient Selection Screen (purchasable ingredients) */}
                 <section>
                     {/* Generate an Item icon for each ingredient for sale */}
-                    {ingredients.map(({ _id, ingredientName}) => 
+                    {loading 
+                        ? <div>Rummaging for ingredients...</div>
+                        : (data.ingredients.map((ingredient) => 
                         <div 
-                            key={ingredientName} 
+                            key={ingredient.ingredientName} 
                             style={{ display: 'inline-block' }}
-                            onClick={() => setItem(_id)}
+                            onClick={() => setItem({ ...selectedItem, ...ingredient })}
                         >
                             {/* Generate item sprite accessed by the ingredient's name */}
-                            <Item {...Sprites[ingredientName]} />
+                            <Item {...Sprites[ingredient.ingredientName]} />
                         </div>
-                    )}
+                    ))}
                 </section>
                 {/* Purchase Window (item sprite, name, description, quantity selection, and purchase button) */}
                 <section>
                     <div className='item_information'>
-                        <h3>{currentIngredient.ingredientName}</h3>
+                        <h3>{selectedItem.ingredientName} {selectedItem.id !== '' ? `(${selectedItem.buyPrice} gold)` : ''}</h3>
+                        <Item {...Sprites[selectedItem.ingredientName]} />
                         <p>
-                            {currentIngredient.desc}
+                            {selectedItem.desc}
                         </p>
                     </div>
                     <div className='purchase_menu'>
@@ -93,7 +93,7 @@ function Store()
                             <button type='button' onClick={decrement_quantity}>-</button>
                         </div>
                         <button type='button' onClick={handleItemPurchase}>
-                            Purchase{quantity > 0 ? ` (x${quantity}) ${currentIngredient.ingredientName}` : ''}?
+                            Purchase{selectedItem.quantity > 0 ? ` (x${selectedItem.quantity}) ${selectedItem.ingredientName}?` : ''}
                         </button>
                     </div>
                 </section>
