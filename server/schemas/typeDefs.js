@@ -18,13 +18,15 @@ const typeDefs = gql`
 
   type CurrentPotion {
     _id: ID
-    databaseId: String
+    potionName: String
+    desc: String
     owned: Int
   }
 
   type CurrentIngredient {
     _id: ID
-    databaseId: String
+    ingredientName: String
+    desc: String
     owned: Int
   }
 
