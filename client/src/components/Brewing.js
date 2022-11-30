@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
 import background from '../assets/backgrounds/brewing.png';
+import '../assets/style/menu.css';
 // TESTING: Owned Ingredient Data contained in an array, replace with GET request to database in the future
 const INGREDIENTS_OWNED =
 [
@@ -96,49 +97,20 @@ function Brewing()
             backgroundRepeat: 'no-repeat',
             maxWidth: '100vw',
             height: '100vh'
-        },
-        brewing_display:
-        {
-            // Sizing/placement rules
-            minWidth: 'fit-content',
-            width: '50%',
-            margin: '0 auto',
-            padding: 10
-        },
-        section:
-        {
-            marginBottom: 10,
-            padding: 10,
-            background: '#0000007c'
-        },
-        ingredients:
-        {
-            display: 'flex',
-            justifyContent: 'center'
-        },
-        ingredient_preview:
-        {
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            border: '1px solid black'
-        },
-        potion_preview:
-        {
-            textAlign: 'center'
         }
     };
 
     return (
         <div id='brewing_container' style={styles.brewing_container}>
-            <div id='brewing_display' style={styles.brewing_display}>
+            <div id='brewing_display'>
                 {/* Top Section (heading and gold count) */}
-                <section style={styles.section}>
+                <section>
                     <h1>Brewing</h1>
                 </section>
                 {/* Ingredient Selection Screen (owned ingredients) */}
                 <section style={styles.section}>
                     {/* Generate an Item icon for each owned ingredient */}
-                    <div style={styles.ingredients}>
+                    <div className='ingredients'>
                         {owned_ingredients.map((ingredient) => 
                             <div 
                                 key={ingredient.ingredientName} 
@@ -153,25 +125,22 @@ function Brewing()
                 </section>
                 {/* Brewing Menu (selected ingredient and potion preview) */}
                 <section style={styles.section}>
-                    <div className='ingredient_slot' style={styles.ingredient_preview}>
+                    <div className='ingredient_slot'>
                         {/* Generate an Item icon for each selected ingredient */}
                         {ingredients.length > 0
                             ?   ingredients.map(({ ingredientName }) => 
-                                    <div 
-                                        key={`${ingredientName}_slotted`} 
-                                        style={styles.ingredient}
-                                    >
+                                    <div key={`${ingredientName}_slotted`}>
                                         {/* Generate item sprite accessed by the ingredient's name */}
                                         <Item {...Sprites[ingredientName]} />
                                     </div>
                                 )
-                            :   <div style={styles.ingredient}>
+                            :   <div>
                                     {/* Generate item sprite accessed by the ingredient's name */}
                                     <Item {...Sprites['placeholder-ingredient']} />
                                 </div>
                         }
                     </div>
-                    <div className='potion_preview' style={styles.potion_preview}>
+                    <div className='potion_preview'>
                         <button type='button' onClick={handlePotionBrewing} title={potionEffect !== '' ? `Potion of ${potionEffect}` : 'No potion yet...'}>
                             {ingredients.length > 0 ? <Item {...Sprites[potionEffect]} /> : <Item {...Sprites['placeholder-potion']} />}
                         </button>
