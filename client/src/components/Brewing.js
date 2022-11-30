@@ -44,9 +44,18 @@ function Brewing()
 
         switch(ingredients[0].ingredientName) 
         {
+            case 'Copper Gel':          setPotionEffect('Endurance');   break;
+            case 'Silver Gel':          setPotionEffect('Wisdom');      break;
+            case 'Gold Gel':            setPotionEffect('Vigor');       break;
             case 'Crimson Herb':        setPotionEffect('Swiftness');   break;
             case 'Gyrfalcon Feathers':  setPotionEffect('Silencing');   break;
+            case 'Moon Pearls':         setPotionEffect('Vanishing');   break;
+            case 'Amber Powder':        setPotionEffect('Strength');    break;
+            case 'Ironwood Acorn':      setPotionEffect('Resilience');  break;
+            case 'Dragon Scale':        setPotionEffect('Belligerence');break;
+            case 'Three-eyed Frog':     setPotionEffect('Awakening');   break;
             case 'Opal Stone':          setPotionEffect('Insight');     break;
+            case 'Mandrake Root':       setPotionEffect('Brilliance');  break;
             default:                    setPotionEffect('potion-temp'); break;
         }
     }, [ingredients]);
