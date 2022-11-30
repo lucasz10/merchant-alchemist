@@ -17,6 +17,9 @@ const storeSchema = new Schema({
       type: String,
     },
   ],
+  goldCount: {
+    type: Number,
+  },
 });
 
 const Store = model("Store", storeSchema);
