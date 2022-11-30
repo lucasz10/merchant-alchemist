@@ -9,12 +9,22 @@ const storeSchema = new Schema({
   },
   potions: [
     {
-      type: String,
+      databaseId: {
+        type: String,
+      },
+      owned: {
+        type: Number,
+      },
     },
   ],
   ingredients: [
     {
-      type: String,
+      databaseId: {
+        type: String,
+      },
+      owned: {
+        type: Number,
+      },
     },
   ],
   goldCount: {
