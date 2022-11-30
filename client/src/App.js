@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import Main from './pages/Main';
 import Store from './components/Store';
 import Brewing from './components/Brewing';
+import Shop from './components/Shop';
 import './App.css';
 
 // Construct our main GraphQL API endpoint
@@ -67,6 +68,10 @@ function App() {
           <Route
             path="/brewing"
             element={<Brewing />}
+          />
+          <Route
+            path="/shop"
+            element={<Shop />}
           />
         </Routes>
       </Router>

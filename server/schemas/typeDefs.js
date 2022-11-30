@@ -11,8 +11,23 @@ const typeDefs = gql`
   type Store {
     _id: ID
     storeName: String
-    potions: [String]
-    ingredients: [String]
+    potions: [CurrentPotion]!
+    ingredients: [CurrentIngredient]!
+    goldCount: Int
+  }
+
+  type CurrentPotion {
+    _id: ID
+    potionName: String
+    desc: String
+    owned: Int
+  }
+
+  type CurrentIngredient {
+    _id: ID
+    ingredientName: String
+    desc: String
+    owned: Int
   }
 
   type Potion {
@@ -48,7 +63,7 @@ const typeDefs = gql`
   }
 `;
 
-  // potions: [Potion]
-  // potion(potionName: String!): Potion
-  // ingredient(ingredientName: String!): Ingredient
+// potions: [Potion]
+// potion(potionName: String!): Potion
+// ingredient(ingredientName: String!): Ingredient
 module.exports = typeDefs;

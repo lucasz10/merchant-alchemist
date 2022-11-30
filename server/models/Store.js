@@ -9,14 +9,33 @@ const storeSchema = new Schema({
   },
   potions: [
     {
-      type: String,
+      potionName: {
+        type: String,
+      },
+      desc: {
+        type: String,
+      },
+      owned: {
+        type: Number,
+      },
     },
   ],
   ingredients: [
     {
-      type: String,
+      ingredientName: {
+        type: String,
+      },
+      desc: {
+        type: String,
+      },
+      owned: {
+        type: Number,
+      },
     },
   ],
+  goldCount: {
+    type: Number,
+  },
 });
 
 const Store = model("Store", storeSchema);

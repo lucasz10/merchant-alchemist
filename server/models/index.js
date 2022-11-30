@@ -3,4 +3,9 @@ const Potion = require("./Potion");
 const Ingredient = require("./Ingredient");
 const Store = require("./Store");
 
-module.exports = { User, Potion, Ingredient, Store };
+module.exports = {
+  User,
+  Potion,
+  Ingredient,
+  Store,
+};
