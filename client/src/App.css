@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
 
+* {
+  font-family: 'Syne Mono', monospace;
+}
+
 .landing {
   color: rgb(244, 250, 250);
-  font-family: 'Syne Mono', monospace;
   font-size: 60px;
   text-shadow: 2px 2px 4px #000000;
 }
 
 .enter {
   color: rgb(246, 241, 241);
-  font-family: 'Syne Mono', monospace;
   font-size: 20px;
   text-shadow: 2px 2px 4px #000000;
 }
@@ -18,11 +20,10 @@
   color: rgb(206, 176, 176);
 }
 
-h2 {
-  font-family: 'Syne Mono', monospace;
-}
-
 #login, #signup {
   margin-right: 2%;
-  font-family: 'Syne Mono', monospace;
+}
+
+#tooltip {
+  margin-left: -25%;
 }
