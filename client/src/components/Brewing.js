@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Item from './item-icons/item';
+import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
 import background from '../assets/backgrounds/brewing.png';
 import '../assets/style/menu.css';
@@ -22,6 +23,29 @@ const INGREDIENTS_OWNED =
         _id: '5',
         ingredientName: 'Opal Stone',
         desc: `Touching this stone to one's head opens the mind, allowing for a greater understanding of the universe.`,
+        owned: 1
+    }
+];
+
+// TESTING: Owned Ingredient Data contained in an array, replace with GET request to database in the future
+const POTIONS_OWNED =
+[
+    {
+        _id: '3',
+        potionName: 'Vigor',
+        desc: 'Restores health.',
+        owned: 5
+    },
+    {
+        _id: '4',
+        potionName: 'Awakening',
+        desc: 'Turns the user temporarily invisible.',
+        owned: 2
+    },
+    {
+        _id: '5',
+        potionName: 'Silencing',
+        desc: `Silences the user's movements.`,
         owned: 1
     }
 ];
@@ -145,6 +169,9 @@ function Brewing()
                             {ingredients.length > 0 ? <Item {...Sprites[potionEffect]} /> : <Item {...Sprites['placeholder-potion']} />}
                         </button>
                     </div>
+                </section>
+                <section>
+                    <Potions potions={POTIONS_OWNED} />
                 </section>
             </div>
         </div>
