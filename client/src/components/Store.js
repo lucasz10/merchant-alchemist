@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
 import background from '../assets/backgrounds/ingredients.png';
+import '../assets/style/menu.css';
 // Import Ingredient/Gold Count Queries
 import { QUERY_INGREDIENTS, QUERY_GOLDCOUNT } from '../utils/queries'
 
@@ -62,18 +63,19 @@ function Store()
                     <div className='gold_counter'>{gold_count} gold</div>
                 </section>
                 {/* Ingredient Selection Screen (purchasable ingredients) */}
-                <section>
+                <section id='ingredients_for_sale'>
                     {/* Generate an Item icon for each ingredient for sale */}
                     {loading 
                         ? <div>Rummaging for ingredients...</div>
                         : (data.ingredients.map((ingredient) => 
                         <div 
                             key={ingredient.ingredientName} 
-                            style={{ display: 'inline-block' }}
+                            // style={{ display: 'inline-block' }}
                             onClick={() => setItem({ ...selectedItem, ...ingredient })}
+                            className='ingredient_icon'
                         >
                             {/* Generate item sprite accessed by the ingredient's name */}
-                            <Item {...Sprites[ingredient.ingredientName]} />
+                            <Item {...{...Sprites[ingredient.ingredientName], amount: ingredient.buyPrice }} />
                         </div>
                     ))}
                 </section>

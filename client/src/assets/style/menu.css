@@ -1,4 +1,5 @@
-#brewing_display
+#brewing_display,
+#store_display
 {
     /* Sizing/placement rules */
     min-width: fit-content;
@@ -7,12 +8,25 @@
     padding: 10;
 }
 
+#store_display { min-width: unset }
+
+#ingredients_for_sale
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
 section
 {
     margin-bottom: 10;
     padding: 10;
     background: #0000007c;
+    color: #fff;
 }
+
+.gold_counter { color: rgb(255, 238, 0) }
 
 .ingredients
 {
@@ -30,4 +44,16 @@ section
 .potion_preview
 {
     text-align: center
+}
+
+/* ---Mobile (phone, tablet) Styling--- */
+@media screen and (max-width: 768px) {
+    #brewing_display,
+    #store_display
+    {
+        /* Sizing/placement rules */
+        min-width: fit-content;
+        width: 100%;
+        padding: 10;
+    }
 }
