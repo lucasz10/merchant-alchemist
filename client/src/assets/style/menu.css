@@ -1,0 +1,33 @@
+#brewing_display
+{
+    /* Sizing/placement rules */
+    min-width: fit-content;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10;
+}
+
+section
+{
+    margin-bottom: 10;
+    padding: 10;
+    background: #0000007c;
+}
+
+.ingredients
+{
+    display: flex;
+    justify-content: center;
+}
+
+.ingredient_slot
+{
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid black;
+}
+
+.potion_preview
+{
+    text-align: center
+}
