@@ -10,11 +10,14 @@ import { QUERY_INGREDIENTS, QUERY_GOLDCOUNT } from '../utils/queries'
 function Store()
 {
     // GET all ingredients in the database
-    const { loading, data } = useQuery(QUERY_INGREDIENTS);
-
+    const { loading: ingredientsLoading, data: ingredientData } = useQuery(QUERY_INGREDIENTS);
+    // GET Gold count for user
+    const { loading: storeLoading, data: storeData } = useQuery(QUERY_GOLDCOUNT, { variables: { storeId: '638965d8b39292391cd66bfa' } });
+    
     // TESTING: Gold count as a state, replace default value with GET request to database in the future
-    const [gold_count, setGoldCount] = useState(600);
-
+    const [gold_count, setGoldCount] = useState(0);
+    React.useEffect(() => storeLoading ? 0 : setGoldCount(storeData.store.goldCount), [storeLoading, storeData]);
+    
     // Verify transaction and make a server request to purchase the item
     const handleItemPurchase = () => {
         // Reject if there are no items to be purchased
@@ -42,9 +45,6 @@ function Store()
         setItem({ ...selectedItem, quantity: selectedItem.quantity - 1 });
     }
 
-    // NOTE: DOES NOT WORK - Calculate total cost based on quantity of item selected
-    // React.useEffect(() => setItem({ ...selectedItem, totalCost: selectedItem.quantity * selectedItem.buyPrice }), [selectedItem]);
-
     const style = {
       backgroundImage: `url(${background})`,
       backgroundPosition: 'center',
@@ -65,9 +65,9 @@ function Store()
                 {/* Ingredient Selection Screen (purchasable ingredients) */}
                 <section id='ingredients_for_sale'>
                     {/* Generate an Item icon for each ingredient for sale */}
-                    {loading 
+                    {ingredientsLoading 
                         ? <div>Rummaging for ingredients...</div>
-                        : (data.ingredients.map((ingredient) => 
+                        : (ingredientData.ingredients.map((ingredient) => 
                         <div 
                             key={ingredient.ingredientName} 
                             // style={{ display: 'inline-block' }}

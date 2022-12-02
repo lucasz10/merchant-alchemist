@@ -14,7 +14,16 @@ export const QUERY_INGREDIENTS = gql`
 export const QUERY_GOLDCOUNT = gql`
   query store($storeId: ID!) {
     store(storeId: $storeId) {
-      _id
+      goldCount
+    }
+  }
+`;
+
+export const QUERY_INVENTORY = gql`
+  query store($storeId: ID!) {
+    store(storeId: $storeId) {
+      potions
+      ingredients
     }
   }
 `;
