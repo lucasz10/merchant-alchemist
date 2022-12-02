@@ -64,6 +64,8 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     createStore(storeName: String!, username: String!): Auth
+    buyIngredient(ingredientName: String!, storeId: ID!): Store
+    sellPotion(potionName: String!, storeId: ID!): Store
   }
 `;
 
