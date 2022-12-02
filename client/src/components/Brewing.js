@@ -66,6 +66,10 @@ function Brewing()
     // Track User's brewed potions
     const [potions, setPotions] = useState(POTIONS_OWNED);
 
+    // Track selected potion
+    const [selectedPotion, setPotion] = useState('');
+    const handlePotionSelection = (potion) => setPotion(potion);
+
     // Select a potion preview from the selected ingredients
     React.useEffect(() => {
         // Check that ingredients have been selected
@@ -177,7 +181,8 @@ function Brewing()
                     </div>
                 </section>
                 <section>
-                    <Potions potions={potions} />
+                    <Potions handlePotionSelection={handlePotionSelection} potions={potions} />
+                    <h1>Potion: {selectedPotion}</h1>
                 </section>
             </div>
         </div>
