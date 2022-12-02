@@ -89,12 +89,12 @@ function Store()
                         </p>
                     </div>
                     <div className='purchase_menu'>
-                        <div>
+                        <div id='quantity_selection'>
                             <h4>How many?</h4>
                             <button type='button' onClick={increment_quantity}>+</button>
                             <button type='button' onClick={decrement_quantity}>-</button>
                         </div>
-                        <button type='button' onClick={handleItemPurchase}>
+                        <button type='button' id='purchase' onClick={handleItemPurchase}>
                             Purchase{selectedItem.quantity > 0 ? ` (x${selectedItem.quantity}) ${selectedItem.ingredientName}?` : ''}
                         </button>
                     </div>
