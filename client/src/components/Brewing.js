@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navigation from './nav-header/Navigation';
 import Item from './item-icons/item';
 import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
@@ -62,6 +63,9 @@ function Brewing()
     // Track potion effect expected from given ingredients
     const [potionEffect, setPotionEffect] = useState('');
 
+    // Track User's brewed potions
+    const [potions, setPotions] = useState(POTIONS_OWNED);
+
     // Select a potion preview from the selected ingredients
     React.useEffect(() => {
         // Check that ingredients have been selected
@@ -106,8 +110,9 @@ function Brewing()
             // Clear out the currently selected ingredients
             setIngredients([]);
             
-            // TODO: Update the quantities using the response from the server
+            // TODO: Update the ingredient quantities and brewed potions using the response from the server
             // updateQuantities()
+            // setPotions()
         }
     }
 
@@ -126,6 +131,7 @@ function Brewing()
 
     return (
         <div id='brewing_container' style={styles.brewing_container}>
+            <Navigation />
             <div id='brewing_display'>
                 {/* Top Section (heading and gold count) */}
                 <section>
@@ -171,7 +177,7 @@ function Brewing()
                     </div>
                 </section>
                 <section>
-                    <Potions potions={POTIONS_OWNED} />
+                    <Potions potions={potions} />
                 </section>
             </div>
         </div>

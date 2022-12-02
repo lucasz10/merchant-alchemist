@@ -15,12 +15,12 @@
         ],
         "ingredients": [    
             {
-            "potionName":"Gold Gel", 
+            "ingredientName":"Gold Gel", 
             "desc":"A healing substance which restores the body.", 
             "owned": 2
             },    
             {
-            "potionName":"Crimson Herb", 
+            "ingredientName":"Crimson Herb", 
             "desc":"Oddly sweet, this herb is often consumed in the wild for a quick burst of energy.", 
             "owned": 3
             } 
@@ -43,12 +43,12 @@
         ],
         "ingredients": [    
             {
-            "potionName":"Gyrfalcon Feathers", 
+            "ingredientName":"Gyrfalcon Feathers", 
             "desc":"Even as it dives, the gyrfalcon never makes a sound.", 
             "owned": 2
             },    
             {
-            "potionName":"Ironwood Acorn", 
+            "ingredientName":"Ironwood Acorn", 
             "desc":"Originating from the kingdom of Valesia, these nuts are hard to crack!", 
             "owned": 4
             } 

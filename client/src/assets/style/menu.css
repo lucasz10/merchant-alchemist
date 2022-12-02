@@ -1,18 +1,48 @@
-#brewing_display
+.nav_header
+{
+    margin: 0 auto;
+    width: fit-content;
+    background-color: #fff;
+    padding: 2vh;
+    border-radius: 10px;
+}
+
+.nav_heading
+{
+    color: #000;
+    text-align: center;
+}
+
+#brewing_display,
+#store_display
 {
     /* Sizing/placement rules */
     min-width: fit-content;
     width: 50%;
     margin: 0 auto;
-    padding: 10;
+    padding: 20px;
+    background: #0000007c;
+}
+
+#store_display { min-width: unset }
+
+#ingredients_for_sale
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 section
 {
-    margin-bottom: 10;
-    padding: 10;
-    background: #0000007c;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: #fff;
+    background: #000000b0;
 }
+
+.gold_counter { color: rgb(255, 238, 0) }
 
 .ingredients
 {
@@ -30,4 +60,36 @@ section
 .potion_preview
 {
     text-align: center
+}
+
+.purchase_menu
+{
+    display: block;
+}
+
+.purchase_menu #quantity_selection button
+{
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.purchase_menu button#purchase
+{
+    font-weight: bold;
+    font-size: large;
+    background-color: antiquewhite;
+    width: 100%;
+    padding: 30px;
+}
+
+/* ---Mobile (phone, tablet) Styling--- */
+@media screen and (max-width: 768px) {
+    #brewing_display,
+    #store_display
+    {
+        /* Sizing/placement rules */
+        min-width: fit-content;
+        width: 100%;
+        padding: 10;
+    }
 }
