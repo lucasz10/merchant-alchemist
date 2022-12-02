@@ -58,8 +58,8 @@ const resolvers = {
         { $addToSet: { stores: store._id } }
       );
     },
-    buyIngredient: async (parent, { ingredientId, storeId }) => {
-      const ingredient = await Ingredient.findOne({ _id: ingredientId });
+    buyIngredient: async (parent, { ingredientName, storeId }) => {
+      const ingredient = await Ingredient.findOne({ ingredientName: ingredientName });
       const price = ingredient.buyPrice;
       const store = await Store.findOne({ _id: storeId });
       const goldCount = store.goldCount;
@@ -69,23 +69,23 @@ const resolvers = {
       }
       store.findOneAndUpdate(
         { _id: storeId }, { $inc: { goldCount: -goldCount, "goldPrice": price } }, { new: true },
-        { _id: ingredientId }, { $inc: { owned: 1 } },
+        { ingredientName: ingredientName }, { $inc: { owned: 1 } },
       );
       return { ingredient, store };
     },
-    sellPotion: async (parent, { potionId, storeId }) => {
-      const potion = await Potion.findOne({ _id: potionId });
+    sellPotion: async (parent, { potionName, storeId }) => {
+      const potion = await Potion.findOne({ potionName: potionName });
       const price = potion.sellPrice;
       const store = await Store.findOne({ _id: storeId });
       const goldCount = store.goldCount;
       store.findOneAndUpdate(
         { _id: storeId }, { $inc: { goldCount: goldCount, "goldPrice": price } }, { new: true },
-        { _id: potionId }, { $inc: { owned: -1 } }, { new: true },
+        { ingredientName: potionId }, { $inc: { owned: -1 } }, { new: true },
       );
       return { potion, store };
     }
   },
-  },
-};
+}
+
 
 module.exports = resolvers;
