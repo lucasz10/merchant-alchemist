@@ -1,42 +1,60 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import Navigation from './nav-header/Navigation';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
 import background from '../assets/backgrounds/ingredients.png';
 import '../assets/style/menu.css';
 // Import Ingredient/Gold Count Queries
-import { QUERY_INGREDIENTS, QUERY_GOLDCOUNT } from '../utils/queries'
+import { QUERY_INGREDIENTS, QUERY_GOLDCOUNT } from '../utils/queries';
+import { BUY_INGREDIENT } from '../utils/mutations';
 
 function Store()
 {
+    // TESTING: Set store ID for testing queries/mutations
+    const STORE_ID = '638a5bb28b3e3a3f64b01fcb';
+
     // GET all ingredients in the database
     const { loading: ingredientsLoading, data: ingredientData } = useQuery(QUERY_INGREDIENTS);
     // GET Gold count for user
-    const { loading: storeLoading, data: storeData } = useQuery(QUERY_GOLDCOUNT, { variables: { storeId: '638965d8b39292391cd66bfa' } });
+    const { loading: storeLoading, data: storeData } = useQuery(QUERY_GOLDCOUNT, { variables: { storeId: STORE_ID } });
+    // PUT transaction purchase
+    const [buyIngredient, { error }] = useMutation(BUY_INGREDIENT);
     
-    // TESTING: Gold count as a state, replace default value with GET request to database in the future
+    // GET gold count, starting with 0
     const [gold_count, setGoldCount] = useState(0);
     React.useEffect(() => storeLoading ? 0 : setGoldCount(storeData.store.goldCount), [storeLoading, storeData]);
+
+    // Tracks selected item
+    const [selectedItem, setItem] = useState({ _id: '', quantity: 0, buyPrice: 0, ingredientName: '', desc: '' });
+
+    // Calculate total cost of selected items, starting with 0
+    const [totalCost, setTotalCost] = useState(0);
+    React.useEffect(() => setTotalCost(selectedItem.quantity * selectedItem.buyPrice), [selectedItem]);
     
     // Verify transaction and make a server request to purchase the item
-    const handleItemPurchase = () => {
-        // Reject if there are no items to be purchased
-        if (selectedItem.quantity <= 0) return;
+    const handleItemPurchase = async (event) => {
+        event.preventDefault();
 
-        const TOTAL_COST = selectedItem.quantity * selectedItem.buyPrice
+        // Reject if there are no items to be purchased or current gold is insufficient
+        if (selectedItem.quantity <= 0 || totalCost > gold_count) return;
 
-        // Reject if current gold is insufficient
-        if (TOTAL_COST > gold_count) return;
-        else 
-        {
-            setGoldCount(gold_count - TOTAL_COST);
-            // Reset selected item and quantity
-            setItem({ _id: '', quantity: 0, buyPrice: 0, totalCost: 0, ingredientName: '', desc: '' });
+        // Make the mutation request and update state when successful
+        try {
+            const { ingredientName } = selectedItem;
+            const { data } = await buyIngredient({ variables: { ingredientName, storeId: STORE_ID } });
+            console.log(data);
+            const new_gold_count = data.buyIngredient.goldCount;
+
+            // Update gold count from response and reset selected item and quantity
+            setGoldCount(new_gold_count);
+            setItem({ _id: '', quantity: 0, buyPrice: 0, ingredientName: '', desc: '' });
+        }
+        catch (error) {
+            console.log(`There was an error when attempting to purchase x${selectedItem.quantity} ${selectedItem.ingredientName}.`);
+            console.error(error);
         }
     }
-    
-    const [selectedItem, setItem] = useState({ _id: '', quantity: 0, buyPrice: 0, totalCost: 0, ingredientName: '', desc: '' });
 
     const increment_quantity = () => selectedItem._id !== '' ? setItem({ ...selectedItem, quantity: selectedItem.quantity + 1 }) : null;
     const decrement_quantity = () => {
