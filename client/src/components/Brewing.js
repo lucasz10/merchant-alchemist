@@ -40,7 +40,7 @@ const POTIONS_OWNED =
     {
         _id: '4',
         potionName: 'Awakening',
-        desc: 'Turns the user temporarily invisible.',
+        desc: 'Increases the available mana.',
         owned: 2
     },
     {
@@ -67,7 +67,7 @@ function Brewing()
     const [potions, setPotions] = useState(POTIONS_OWNED);
 
     // Track selected potion
-    const [selectedPotion, setPotion] = useState('');
+    const [selectedPotion, setPotion] = useState({ _id: '', potionName: '', desc: '', owned: 0 });
     const handlePotionSelection = (potion) => setPotion(potion);
 
     // Select a potion preview from the selected ingredients
@@ -182,7 +182,8 @@ function Brewing()
                 </section>
                 <section>
                     <Potions handlePotionSelection={handlePotionSelection} potions={potions} />
-                    <h1>Potion: {selectedPotion}</h1>
+                    <h1>Potion: {selectedPotion.potionName}</h1>
+                    <p>{selectedPotion.desc}</p>
                 </section>
             </div>
         </div>

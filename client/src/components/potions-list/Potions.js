@@ -23,16 +23,16 @@ function Potions({ handlePotionSelection, potions })
     }
 
     // Tracks potion selected, and returns to Parent component
-    const [potionSelected, setPotionSelected] = useState('');
+    const [potionSelected, setPotionSelected] = useState({ _id: '', potionName: '', desc: '', owned: 0 });
     React.useEffect(() => handlePotionSelection(potionSelected), [potionSelected, handlePotionSelection]);
 
     return (
         <div className='potion_list_container' style={styles.potion_list_container}>
-            {potions.map(({ potionName, owned }) => 
+            {potions.map(({ _id, potionName, desc, owned }) => 
                 <div 
                     key={potionName} 
                     value={potionName}
-                    onClick={() => setPotionSelected(potionName) }
+                    onClick={() => setPotionSelected({ _id, potionName, desc, owned }) }
                     title={`Potion of ${potionName}`} 
                     style={{ display: 'inline-block' }}
                 >
