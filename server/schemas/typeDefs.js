@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
+    stores: [Store]!
   }
 
   type Store {
@@ -53,13 +54,16 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
+    stores(username: String!): [Store]
     store(storeId: ID!): Store
     ingredients: [Ingredient]!
+    potions: [Potion]!
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    createStore(storeName: String!, username: String!): Auth
   }
 `;
 

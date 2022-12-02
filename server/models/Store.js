@@ -35,6 +35,7 @@ const storeSchema = new Schema({
   ],
   goldCount: {
     type: Number,
+    default: 100,
   },
 });
 

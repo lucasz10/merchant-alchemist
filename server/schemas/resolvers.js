@@ -12,12 +12,19 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username });
     },
-    store: async (parent, { storeId }) => { 
+    stores: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Store.find(params).sort({ createdAt: -1 });
+    },
+    store: async (parent, { storeId }) => {
       return Store.findOne({ _id: storeId });
     },
     ingredients: async () => {
       return Ingredient.find();
-    }
+    },
+    potions: async () => {
+      return Potion.find();
+    },
   },
   // Changing the information in the database
   Mutation: {
@@ -42,7 +49,15 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
-    }
+    },
+    createStore: async (parent, { storeName, username }) => {
+      const store = await Store.create({ storeName });
+
+      await User.findOneAndUpdate(
+        { username: username },
+        { $addToSet: { stores: store._id } }
+      );
+    },
   },
 };
 
