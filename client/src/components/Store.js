@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
+import Navigation from './nav-header/Navigation';
 import Item from './item-icons/item';
 import Sprites from '../assets/sprites';
 import background from '../assets/backgrounds/ingredients.png';
@@ -56,6 +57,7 @@ function Store()
 
     return (
         <div id='store_container' style={style}>
+            <Navigation />
             <div id='store_display'>
                 {/* Top Section (heading and gold count) */}
                 <section>
