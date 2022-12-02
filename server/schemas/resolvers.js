@@ -58,6 +58,33 @@ const resolvers = {
         { $addToSet: { stores: store._id } }
       );
     },
+    buyIngredient: async (parent, { ingredientId, storeId }) => {
+      const ingredient = await Ingredient.findOne({ _id: ingredientId });
+      const price = ingredient.buyPrice;
+      const store = await Store.findOne({ _id: storeId });
+      const goldCount = store.goldCount;
+      // Check if the store has enough gold to buy the ingredient
+      if (goldCount < price) {
+        throw new ApolloError("Not enough gold to buy this ingredient");
+      }
+      store.findOneAndUpdate(
+        { _id: storeId }, { $inc: { goldCount: -goldCount, "goldPrice": price } }, { new: true },
+        { _id: ingredientId }, { $inc: { owned: 1 } },
+      );
+      return { ingredient, store };
+    },
+    sellPotion: async (parent, { potionId, storeId }) => {
+      const potion = await Potion.findOne({ _id: potionId });
+      const price = potion.sellPrice;
+      const store = await Store.findOne({ _id: storeId });
+      const goldCount = store.goldCount;
+      store.findOneAndUpdate(
+        { _id: storeId }, { $inc: { goldCount: goldCount, "goldPrice": price } }, { new: true },
+        { _id: potionId }, { $inc: { owned: -1 } }, { new: true },
+      );
+      return { potion, store };
+    }
+  },
   },
 };
 
