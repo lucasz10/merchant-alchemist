@@ -15,6 +15,8 @@ const Main = () => {
     },
     card: {
       width: "25rem",
+      backgroundColor: "transparent",
+      border: "none",
     },
   };
 
@@ -26,11 +28,11 @@ const Main = () => {
       <div class="d-flex align-items-center justify-content-center pt-5">
         <div className="card text-center" style={styles.card}>
           <div className="card-body">
-            <Link to="/store" class="btn btn-secondary btn-block">Purchase Ingredients</Link>
-            <Link to="/brewing" class="btn btn-danger btn-block">Arcanium</Link>
-            <Link to="/shop" class="btn btn-info btn-block">Open Shop</Link>
-            <Link to="/faq" class="btn btn-primary btn-block">FAQ</Link>
-            <Link to="/" class="btn btn-dark btn-block">Logout</Link>
+            <Link to="/store" className="btn btn-secondary btn-block mb-3">Purchase Ingredients</Link>
+            <Link to="/brewing" className="btn btn-danger btn-block mb-3">Arcanium</Link>
+            <Link to="/shop" className="btn btn-info btn-block mb-3">Open Shop</Link>
+            <Link to="/faq" className="btn btn-primary btn-block mb-3">FAQ</Link>
+            <Link to="/" className="btn btn-dark btn-block mb-3">Logout</Link>
           </div>
         </div>
       </div>
