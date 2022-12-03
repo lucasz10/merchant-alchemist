@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import background from '../assets/backgrounds/shop.png';
 import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
+import Navigation from './nav-header/Navigation';
 
 const Shop = () => {
 
@@ -53,7 +54,8 @@ const Shop = () => {
 
   return (
     <div className="container" style={style}>
-      <div className="row">
+      <Navigation />
+      <div className="row pt-5">
           <div className="col-2"/>
 
           <div className='col-2'>

@@ -127,9 +127,7 @@ function Brewing()
             backgroundImage: `url(${background})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
             maxWidth: '100vw',
-            height: '100vh'
         }
     };
 
