@@ -68,7 +68,7 @@ function Store()
       backgroundImage: `url(${background})`,
       backgroundPosition: 'center',
       backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
+      backgroundRepeat: 'repeat',
       maxWidth: '100vw',
       height: '100vh',
     };

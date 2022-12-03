@@ -28,45 +28,12 @@ const Main = () => {
           <div className="card-body">
             <Link to="/store" class="btn btn-secondary btn-block">Purchase Ingredients</Link>
             <Link to="/brewing" class="btn btn-danger btn-block">Arcanium</Link>
-            <Link to="/shop" class="btn btn-primary btn-block">Open Shop</Link>
+            <Link to="/shop" class="btn btn-info btn-block">Open Shop</Link>
             <Link to="/faq" class="btn btn-primary btn-block">FAQ</Link>
-            <Link to="/logout" class="btn btn-primary btn-block">Logout</Link>
+            <Link to="/" class="btn btn-dark btn-block">Logout</Link>
           </div>
         </div>
       </div>
-      
-      
-      
-      {/* <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">Purchase Ingredients</h5>
-            <Link to="/store" class="btn btn-secondary">Purchase Ingredients</Link>
-        </div>
-      </div>
-      <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">Arcanium</h5>
-            <Link to="/brewing" class="btn btn-danger">Arcanium</Link>
-        </div>
-      </div>
-      <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">Open Shop</h5>
-            <Link to="/shop" class="btn btn-primary">Open Shop</Link>
-        </div>
-      </div>
-      <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">FAQ</h5>
-            <Link to="/shop" class="btn btn-primary">FAQ</Link>
-        </div>
-      </div>
-      <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">Logout</h5>
-            <Link to="/shop" class="btn btn-primary">Logout</Link>
-        </div>
-      </div> */}
     </div>
   );
 };
