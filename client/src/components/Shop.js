@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import background from '../assets/backgrounds/shop.png';
 import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
+import generateScenario from '../utils/scenario_generator';
 
 const Shop = () => {
 
