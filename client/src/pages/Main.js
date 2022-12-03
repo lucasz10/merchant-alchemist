@@ -14,28 +14,26 @@ const Main = () => {
       height: '100vh',
     },
     card: {
-      width: "18rem",
+      width: "25rem",
+      backgroundColor: "transparent",
+      border: "none",
     },
   };
 
   return (
     <div className="container pt-5" style={styles.background}>
-      <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">Purchase Ingredients</h5>
-            <Link to="/store" class="btn btn-secondary">Purchase Ingredients</Link>
-        </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <h1 className="landing"> Merchant Alchemist</h1>
       </div>
-      <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">Arcanium</h5>
-            <Link to="/brewing" class="btn btn-danger">Arcanium</Link>
-        </div>
-      </div>
-      <div className="card text-center" style={styles.card}>
-        <div className="card-body">
-          <h5 className="card-title">Open Shop</h5>
-            <Link to="/shop" class="btn btn-primary">Open Shop</Link>
+      <div class="d-flex align-items-center justify-content-center pt-5">
+        <div className="card text-center" style={styles.card}>
+          <div className="card-body">
+            <Link to="/store" className="btn btn-secondary btn-block mb-3">Purchase Ingredients</Link>
+            <Link to="/brewing" className="btn btn-danger btn-block mb-3">Arcanium</Link>
+            <Link to="/shop" className="btn btn-info btn-block mb-3">Open Shop</Link>
+            <Link to="/faq" className="btn btn-primary btn-block mb-3">FAQ</Link>
+            <Link to="/" className="btn btn-dark btn-block mb-3">Logout</Link>
+          </div>
         </div>
       </div>
     </div>
