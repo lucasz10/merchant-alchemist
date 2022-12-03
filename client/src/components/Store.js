@@ -12,7 +12,7 @@ import { BUY_INGREDIENT } from '../utils/mutations';
 function Store()
 {
     // TESTING: Set store ID for testing queries/mutations
-    const STORE_ID = '638a5bb28b3e3a3f64b01fcb';
+    const STORE_ID = '638bcb66472d50993f6ad222';
 
     // GET all ingredients in the database
     const { loading: ingredientsLoading, data: ingredientData } = useQuery(QUERY_INGREDIENTS);
@@ -68,9 +68,7 @@ function Store()
       backgroundImage: `url(${background})`,
       backgroundPosition: 'center',
       backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
       maxWidth: '100vw',
-      height: '100vh',
     };
 
     return (

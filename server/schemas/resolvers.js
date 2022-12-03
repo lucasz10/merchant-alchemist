@@ -51,15 +51,22 @@ const resolvers = {
       return { token, user };
     },
     createStore: async (parent, { storeName, username }) => {
-      const store = await Store.create({ storeName });
+      const store = await Store.create({
+        storeName,
+        storeOwner: username,
+      });
 
       await User.findOneAndUpdate(
         { username: username },
         { $addToSet: { stores: store._id } }
       );
+
+      return store;
     },
     buyIngredient: async (parent, { ingredientName, storeId }) => {
-      const ingredient = await Ingredient.findOne({ ingredientName: ingredientName });
+      const ingredient = await Ingredient.findOne({
+        ingredientName: ingredientName,
+      });
       const store = await Store.findOne({ _id: storeId });
 
       // Check that ingredient and store exist in the database
@@ -70,14 +77,13 @@ const resolvers = {
       const { goldCount } = store;
 
       // Check that ingredient can be purchased
-      if (goldCount < buyPrice)
-      {
-        return { message: 'Not enough gold to buy this ingredient' };
+      if (goldCount < buyPrice) {
+        return { message: "Not enough gold to buy this ingredient" };
       }
 
       const updated_store = await Store.findOneAndUpdate(
-        { _id: storeId, 'ingredients.ingredientName': ingredientName }, 
-        { $inc: { goldCount: -buyPrice, 'ingredients.$.owned': +1 } }, 
+        { _id: storeId, "ingredients.ingredientName": ingredientName },
+        { $inc: { goldCount: -buyPrice, "ingredients.$.owned": +1 } },
         { new: true }
       );
 
@@ -89,13 +95,27 @@ const resolvers = {
       const store = await Store.findOne({ _id: storeId });
       const goldCount = store.goldCount;
       store.findOneAndUpdate(
-        { _id: storeId }, { $inc: { goldCount: goldCount, "goldPrice": price } }, { new: true },
-        { ingredientName: potionId }, { $inc: { owned: -1 } }, { new: true },
+        { _id: storeId },
+        { $inc: { goldCount: goldCount, goldPrice: price } },
+        { new: true },
+        { ingredientName: potionId },
+        { $inc: { owned: -1 } },
+        { new: true }
       );
       return { potion, store };
-    }
-  },
-}
+    },
+    // brewPotion: async (parent, { potionName, storeId }) => {
+    //   const potion = await Potion.findOne({ potionName: potionName });
+    //   const store = await Store.findOne({ _id: storeId });
 
+    //   // Check that ingredient and store exist in the database
+    //   if (!potion) return `No potion with name: ${potionName}`;
+    //   if (!store) return `No store with ID: ${storeId}`;
+
+    //   const req_ingredients = potion.reqIngredients;
+    //   const owned_ingredients = store.ingredients;
+    // },
+  },
+};
 
 module.exports = resolvers;
