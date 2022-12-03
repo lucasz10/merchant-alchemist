@@ -15,6 +15,7 @@ const typeDefs = gql`
     potions: [CurrentPotion]!
     ingredients: [CurrentIngredient]!
     goldCount: Int
+    storeOwner: String
   }
 
   type CurrentPotion {
@@ -63,13 +64,10 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    createStore(storeName: String!, username: String!): Auth
+    createStore(storeName: String!, username: String!): Store
     buyIngredient(ingredientName: String!, storeId: ID!): Store
     sellPotion(potionName: String!, storeId: ID!): Store
   }
 `;
 
-// potions: [Potion]
-// potion(potionName: String!): Potion
-// ingredient(ingredientName: String!): Ingredient
 module.exports = typeDefs;
