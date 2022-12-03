@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import background from '../assets/backgrounds/shop.png';
-import knight from '../assets/backgrounds/knight.png';
 import Potions from './potions-list/Potions';
+import Sprites from '../assets/sprites';
 
 const Shop = () => {
 
@@ -59,7 +59,7 @@ const Shop = () => {
           <div className='col-2'>
             <div className="card text-center">
               <h5 className="card-header">Pepe the Adventurer</h5>
-              <img src={knight} alt="wizard" className="knight mx-auto"/>
+              <img src={Sprites['knight'].img} alt={Sprites['knight'].alt} className="knight mx-auto"/>
               <div className="card-body">
                 <p className="card-text">Would yer like to sell me some of yer potions?</p>
                 <div className='row'>
