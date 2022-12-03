@@ -55,7 +55,7 @@ const Shop = () => {
   return (
     <div className="container" style={style}>
       <Navigation />
-      <div className="row">
+      <div className="row pt-5">
           <div className="col-2"/>
 
           <div className='col-2'>

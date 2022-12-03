@@ -23,7 +23,7 @@ const Main = () => {
       <div class="d-flex align-items-center justify-content-center">
         <h1 className="landing"> Merchant Alchemist</h1>
       </div>
-      <div class="d-flex align-items-center justify-content-center">
+      <div class="d-flex align-items-center justify-content-center pt-5">
         <div className="card text-center" style={styles.card}>
           <div className="card-body">
             <Link to="/store" class="btn btn-secondary btn-block">Purchase Ingredients</Link>
