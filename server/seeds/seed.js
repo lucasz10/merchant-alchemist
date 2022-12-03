@@ -15,7 +15,19 @@ db.once("open", async () => {
     await User.create(userSeeds);
     await Potion.create(potionSeeds);
     await Ingredient.create(ingredientSeeds);
-    await Store.create(storeSeeds);
+
+    //Seeds stores and adds them to user array
+    for (let i = 0; i < storeSeeds.length; i++) {
+      const { _id, storeOwner } = await Store.create(storeSeeds[i]);
+      const user = await User.findOneAndUpdate(
+        { username: storeOwner },
+        {
+          $addToSet: {
+            stores: _id,
+          },
+        }
+      );
+    }
 
     console.log("all done!");
     process.exit(0);
