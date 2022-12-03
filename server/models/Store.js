@@ -37,6 +37,9 @@ const storeSchema = new Schema({
     type: Number,
     default: 100,
   },
+  storeOwner: {
+    type: String,
+  },
 });
 
 const Store = model("Store", storeSchema);

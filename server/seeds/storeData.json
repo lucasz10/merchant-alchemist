@@ -25,7 +25,8 @@
             "owned": 3
             } 
         ],
-        "goldCount": 157
+        "goldCount": 157,
+        "storeOwner": "user1"
     },
     {
         "storeName": "Max FX Potions",
@@ -53,6 +54,36 @@
             "owned": 4
             } 
         ],
-        "goldCount": 157
+        "goldCount": 157,
+        "storeOwner": "user2"
+    },
+    {
+        "storeName": "Max FX Potions",
+        "potions":[    
+            {
+            "potionName":"Wisdom", 
+            "desc":"Restores Mana", 
+            "owned": 1
+            },    
+            {
+            "potionName":"Swiftness", 
+            "desc": "Increases Movement Speed", 
+            "owned": 3
+            } 
+        ],
+        "ingredients": [    
+            {
+            "potionName":"Gyrfalcon Feathers", 
+            "desc":"Even as it dives, the gyrfalcon never makes a sound.", 
+            "owned": 2
+            },    
+            {
+            "potionName":"Ironwood Acorn", 
+            "desc":"Originating from the kingdom of Valesia, these nuts are hard to crack!", 
+            "owned": 4
+            } 
+        ],
+        "goldCount": 157,
+        "storeOwner": "user3"
     }
 ]
