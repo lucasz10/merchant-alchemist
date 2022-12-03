@@ -71,7 +71,7 @@ function App() {
           />
           <Route
             path="/shop"
-            element={<Shop />}
+            element={<Brewing />}
           />
         </Routes>
       </Router>
