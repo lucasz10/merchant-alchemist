@@ -7,9 +7,12 @@ import goldGel from './gold-gel64x64.png';
 import crimsonHerb from './crimson-herb64x64.png';
 import gyrfalconFeathers from './gyrfalcon-feathers64x64.png';
 import moonPearls from './moon-pearls64x64.png';
+import amberPowder from './amber-powder64x64.png';
 import ironwoodAcorn from './ironwood-acorn64x64.png';
+import dragonScale from './dragon-scale64x64.png';
 import threeEyedFrog from './three-eyed-frog64x64.png';
 import opalStone from './opal-stone64x64.png';
+import mandrakeRoot from './mandrake-root64x64.png';
 // Importing Potion Sprites
 import placeholderPotion from './potions/placeholder-potion64x64.png';
 import unknownPotion from './potions/unknown-potion64x64.png';
@@ -25,6 +28,10 @@ import potionBelligerence from './potions/potion-belligerence64x64.png';
 import potionAwakening from './potions/potion-awakening64x64.png';
 import potionInsight from './potions/potion-insight64x64.png';
 import potionBrilliance from './potions/potion-brilliance64x64.png';
+// Importing Adventurer Sprites
+import knight from './adventurers/knight.png';
+import mage from './adventurers/mage.png';
+import rogue from './adventurers/rogue.png';
 
 class Sprite
 {
@@ -46,9 +53,12 @@ Sprites['Gold Gel'] = new Sprite(goldGel, 'A gelatinous drop with the sheen of g
 Sprites['Crimson Herb'] = new Sprite(crimsonHerb, 'An herb with crimson plant parts and furling petals which turn purple at the tips.');
 Sprites['Gyrfalcon Feathers'] = new Sprite(gyrfalconFeathers, 'Three gyrfalcon feathers with light coloration and dark tips stacked on top of each other.');
 Sprites['Moon Pearls'] = new Sprite(moonPearls, 'Five dark pearls with a purple aura surrounding them.');
+Sprites['Amber Powder'] = new Sprite(amberPowder, 'A pile of powdered amber surrounded by red energy.');
 Sprites['Ironwood Acorn'] = new Sprite(ironwoodAcorn, 'Dark blue acorn with a light brown cap and stem.');
+Sprites['Dragon Scale'] = new Sprite(dragonScale, 'A dark gray dragon scale resembling a reptile scale, with a flat-rounded end tapering off to a point on the other end.');
 Sprites['Three-eyed Frog'] = new Sprite(threeEyedFrog, 'Strange looking frog with a third eye in the center of its forehead with a celestial aura surrounding it.');
 Sprites['Opal Stone'] = new Sprite(opalStone, 'A dark purple stone containing multicolored flakes which resemble a galaxy, surrounded by a white aura.');
+Sprites['Mandrake Root'] = new Sprite(mandrakeRoot, 'Humanoid root with limbs resembling arms and legs; topped with blue green leaves and a faint visage.');
 
 // Define sprite data for each potion image imported
 Sprites['placeholder-potion'] = new Sprite(placeholderPotion, 'A generic preview of a potion to signify that no ingredients have been selected at this moment.');
@@ -65,5 +75,10 @@ Sprites['Belligerence'] = new Sprite(potionBelligerence, 'Glass bottle filled wi
 Sprites['Awakening'] = new Sprite(potionAwakening, 'Glass bottle filled with a magenta liquid.');
 Sprites['Insight'] = new Sprite(potionInsight, 'Glass bottle filled with a turquoise liquid.');
 Sprites['Brilliance'] = new Sprite(potionBrilliance, 'Glass bottle filled with a light yellow liquid.');
+
+// Define sprite data for each adventurer
+Sprites['knight'] = new Sprite(knight, 'Bearded warrior with a furcoat, horned helmet, and a long straight sword.');
+Sprites['mage'] = new Sprite(mage, 'Black haired mage with red bangs, wearing red robes and wielding a staff topped with a red jewel.');
+Sprites['rogue'] = new Sprite(rogue, 'Rogue with a green cloak and the bottom half of his face covered, wielding dual daggers.');
 
 export default Sprites;

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import background from '../assets/backgrounds/shop.png';
-import knight from '../assets/backgrounds/knight.png';
-
-import potion from '../assets/sprites/potions/placeholder-potion64x64.png'
 import Potions from './potions-list/Potions';
+import Sprites from '../assets/sprites';
 
 const Shop = () => {
 
@@ -18,26 +16,40 @@ const Shop = () => {
 
   const data = [
     {
+      _id: '1',
       potionName: 'Awakening',
+      desc: 'Increases the available mana',
       owned: 1
     },
     {
+      _id: '2',
       potionName: 'Endurance',
+      desc: 'Restores Stamina',
       owned: 2
     },
     {
+      _id: '3',
       potionName: 'Wisdom',
+      desc: 'Restores Mana',
       owned: 3
     },
     {
+      _id: '4',
       potionName: 'Vigor',
+      desc: 'Restores Health',
       owned: 4
     },
     {
+      _id: '5',
       potionName: 'Strength',
+      desc: 'Increases physical attack',
       owned: 5
     }
-  ]
+  ];
+
+  // Track selected potion
+  const [selectedPotion, setPotion] = useState({ _id: '', potionName: '', desc: '', owned: 0 });
+  const handlePotionSelection = (potion) => setPotion(potion);
 
   return (
     <div className="container" style={style}>
@@ -47,7 +59,7 @@ const Shop = () => {
           <div className='col-2'>
             <div className="card text-center">
               <h5 className="card-header">Pepe the Adventurer</h5>
-              <img src={knight} alt="wizard" className="knight mx-auto"/>
+              <img src={Sprites['knight'].img} alt={Sprites['knight'].alt} className="knight mx-auto"/>
               <div className="card-body">
                 <p className="card-text">Would yer like to sell me some of yer potions?</p>
                 <div className='row'>
@@ -65,9 +77,11 @@ const Shop = () => {
           <div className='col-6'>
             <div className="card">
               <h5 className="card-header text-center">Your Inventory</h5>
-              <Potions potions={data} />
+              <Potions handlePotionSelection={handlePotionSelection} potions={data} />
               <div className="card-footer text-center">
-                <small className="text-muted">1 potion(s) selected</small>
+                <small className="text-muted">Selected Potion: {selectedPotion.potionName}</small>
+                <br />
+                <small className="text-muted">Description: {selectedPotion.desc}</small>
               </div>
             </div>
           </div>
