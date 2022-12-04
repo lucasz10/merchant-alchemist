@@ -30,7 +30,7 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       // Initialize new user
-      const user = await User.create({ username, email, password });
+      await User.create({ username, email, password });
 
       const ingredients = await Ingredient.find();
       const initial_ingredients = ingredients.map(
@@ -52,13 +52,13 @@ const resolvers = {
         potions: initial_potions,
       });
 
-      const updated_user = await User.findOneAndUpdate(
+      const user = await User.findOneAndUpdate(
         { username: username },
         { $addToSet: { stores: store._id } }
       );
 
       const token = signToken(user);
-      return { token, updated_user };
+      return { token, user };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
