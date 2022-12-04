@@ -51,9 +51,17 @@ const resolvers = {
       return { token, user };
     },
     createStore: async (parent, { storeName, username }) => {
+      const ingredients = await Ingredient.find();
+      const initial_ingredients = ingredients.map(({ ingredientName, desc }) => {return { ingredientName, desc, owned: 0 }});
+
+      const potions = await Potion.find();
+      const initial_potions = potions.map(({ potionName, desc }) => {return { potionName, desc, owned: 0 }});
+
       const store = await Store.create({
         storeName,
         storeOwner: username,
+        ingredients: initial_ingredients,
+        potions: initial_potions
       });
 
       await User.findOneAndUpdate(
