@@ -58,7 +58,7 @@
         "storeOwner": "user2"
     },
     {
-        "storeName": "Potion Seller",
+        "storeName": "My new Great Store",
         "potions":[    
             {
             "potionName":"Wisdom", 
