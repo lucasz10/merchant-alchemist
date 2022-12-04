@@ -86,6 +86,16 @@ const Shop = () => {
     if (order >= scenarioPatrons.length - 1) navigate('/main');
   }
 
+  const handlePotionDecline = () =>
+  {
+    // Reset currently selected potion and increment the scenario to the next patron
+    setPotion({ _id: '', potionName: '', desc: '', owned: 0 });
+    setOrder(order + 1);
+
+    // Exit the shop and return to Main Menu if there are no more patrons left
+    if (order >= scenarioPatrons.length - 1) navigate('/main');
+  }
+
   return (
     <div className="container" style={style}>
       <Navigation />
@@ -94,7 +104,7 @@ const Shop = () => {
 
           <div className='col-2'>
             <div className="card text-center">
-              <h5 className="card-header">{adventurer.name} {`Adventurer #: ${order + 1}`}</h5>
+              <h5 className="card-header">{adventurer.name} the {adventurer.occupation.charAt(0).toUpperCase() + adventurer.occupation.slice(1)} {`Adventurer #: ${order + 1}`}</h5>
               <img src={Sprites[adventurer.occupation].img} alt={Sprites[adventurer.occupation].alt} className="knight mx-auto"/>
               <div className="card-body">
                 <p className="card-text">{adventurer.dialogue}</p>
@@ -103,7 +113,7 @@ const Shop = () => {
                     <button type="button" onClick={handlePotionSelling} className="btn btn-primary btn-block">Sell</button>
                   </div>
                   <div className='col'>
-                    <button type="button" className="btn btn-danger btn-block">Deny</button>
+                    <button type="button" onClick={handlePotionDecline} className="btn btn-danger btn-block">Deny</button>
                   </div>
                 </div>
               </div>
