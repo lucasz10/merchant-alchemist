@@ -88,10 +88,10 @@ const Shop = () => {
 
           <div className='col-2'>
             <div className="card text-center">
-              <h5 className="card-header">Pepe the Adventurer {`Adventurer #: ${order + 1}`}</h5>
+              <h5 className="card-header">{adventurer.name} {`Adventurer #: ${order + 1}`}</h5>
               <img src={Sprites[adventurer.occupation].img} alt={Sprites[adventurer.occupation].alt} className="knight mx-auto"/>
               <div className="card-body">
-                <p className="card-text">Would yer like to sell me some of yer potions?</p>
+                <p className="card-text">{adventurer.dialogue}</p>
                 <div className='row'>
                   <div className='col'>
                     <button type="button" onClick={handlePotionSelling} className="btn btn-primary btn-block">Sell</button>

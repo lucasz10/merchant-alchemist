@@ -1,17 +1,59 @@
 
 class Adventurer
 {
-    constructor(occupation)
+    constructor(name, occupation, dialogue)
     {
+        this.name = name;
         this.occupation = occupation;
+        this.dialogue = dialogue;
     }
 }
 
-const knight = new Adventurer('knight');
-const mage = new Adventurer('mage');
-const rogue = new Adventurer('rogue');
+const occupations = ['knight', 'mage', 'rogue'];
 
-const Adventurers = [knight, mage, rogue];
+const names =
+{
+    knight:
+    [
+        'Hagrid',
+        'Aragorn',
+        'Zorya'
+    ],
+    mage:
+    [
+        'Trinity',
+        'Alice',
+        'Furiosa'
+    ],
+    rogue:
+    [
+        'Han',
+        'Leon',
+        'Denton'
+    ]
+}
+
+const dialogue_options =
+{
+    knight:
+    [
+        'Would yer like to sell me some of yer potions?',
+        'Me strong, but would like to be more strong!',
+        'Any potions for a mighty warrior such as myself?'
+    ],
+    mage:
+    [
+        'Kind potion seller, would you sell me your strongest potions?',
+        'Please! I am in need of potions to boost my wits!',
+        `I'd like to cast some more spells, would you happen to have just the right brew?`
+    ],
+    rogue:
+    [
+        'Hey, pal. Got any of those potions for sneaky types like me?',
+        `I'd like some potions, preferably the stealthy variety...if you catch my drift.`,
+        `Psst, any potions for sale there, boss?`
+    ]
+};
 
 function generateScenario(potionsOwnedSum)
 {
@@ -31,9 +73,18 @@ function generateScenario(potionsOwnedSum)
 
     for (let i = 0 ; i < numPatrons ; i++)
     {
-        // Generate a random index for adventurer from 0 to 2
-        let patron_index = generateRandomNum(3);
-        let adventurer = Adventurers[patron_index];
+        // Generate a random adventurer occupation
+        let occupation_index = generateRandomNum(occupations.length);
+        let occupation = occupations[occupation_index];
+
+        // Generate a random name and dialogue option from the occupation
+        let name_index = generateRandomNum(names[occupation].length);
+        let name = names[occupation][name_index];
+        let dialogue_index = generateRandomNum(dialogue_options[occupation].length);
+        let dialogue = dialogue_options[occupation][dialogue_index];
+
+        const adventurer = new Adventurer(name, occupation, dialogue);
+
         // Add adventurer to list of patrons
         shopPatrons.push(adventurer);
     }
