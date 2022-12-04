@@ -33,17 +33,23 @@ const resolvers = {
       const user = await User.create({ username, email, password });
 
       const ingredients = await Ingredient.find();
-      const initial_ingredients = ingredients.map(({ ingredientName, desc }) => {return { ingredientName, desc, owned: 0 }});
+      const initial_ingredients = ingredients.map(
+        ({ ingredientName, desc }) => {
+          return { ingredientName, desc, owned: 0 };
+        }
+      );
 
       const potions = await Potion.find();
-      const initial_potions = potions.map(({ potionName, desc }) => {return { potionName, desc, owned: 0 }});
+      const initial_potions = potions.map(({ potionName, desc }) => {
+        return { potionName, desc, owned: 0 };
+      });
 
       // Initialize new store
       const store = await Store.create({
         storeName: `${username}'s Store`,
         storeOwner: username,
         ingredients: initial_ingredients,
-        potions: initial_potions
+        potions: initial_potions,
       });
 
       const updated_user = await User.findOneAndUpdate(
@@ -73,16 +79,22 @@ const resolvers = {
     },
     createStore: async (parent, { storeName, username }) => {
       const ingredients = await Ingredient.find();
-      const initial_ingredients = ingredients.map(({ ingredientName, desc }) => {return { ingredientName, desc, owned: 0 }});
+      const initial_ingredients = ingredients.map(
+        ({ ingredientName, desc }) => {
+          return { ingredientName, desc, owned: 0 };
+        }
+      );
 
       const potions = await Potion.find();
-      const initial_potions = potions.map(({ potionName, desc }) => {return { potionName, desc, owned: 0 }});
+      const initial_potions = potions.map(({ potionName, desc }) => {
+        return { potionName, desc, owned: 0 };
+      });
 
       const store = await Store.create({
         storeName,
         storeOwner: username,
         ingredients: initial_ingredients,
-        potions: initial_potions
+        potions: initial_potions,
       });
 
       await User.findOneAndUpdate(
@@ -145,17 +157,40 @@ const resolvers = {
       );
       return updated_store;
     },
-    // brewPotion: async (parent, { potionName, storeId }) => {
-    //   const potion = await Potion.findOne({ potionName: potionName });
-    //   const store = await Store.findOne({ _id: storeId });
+    brewPotion: async (parent, { potionName, storeId }) => {
+      const potion = await Potion.findOne({ potionName: potionName });
+      const store = await Store.findOne({ _id: storeId });
 
-    //   // Check that ingredient and store exist in the database
-    //   if (!potion) return `No potion with name: ${potionName}`;
-    //   if (!store) return `No store with ID: ${storeId}`;
+      // Check that ingredient and store exist in the database
+      if (!potion) return `No potion with name: ${potionName}`;
+      if (!store) return `No store with ID: ${storeId}`;
 
-    //   const req_ingredients = potion.reqIngredients;
-    //   const owned_ingredients = store.ingredients;
-    // },
+      const req_ingredient = potion.reqIngredients[0];
+
+      const ingredientsArray = store.ingredients;
+      const ingredientOwned = ingredientsArray.filter(
+        (ingredient) => ingredient.ingredientName === req_ingredient
+      )[0];
+
+      console.log(ingredientOwned);
+
+      if (ingredientOwned.owned < 1) {
+        return {
+          message: `Not enough of ${ingredientOwned.ingredientName} to brew potion!`,
+        };
+      }
+
+      const updated_store = await Store.findOneAndUpdate(
+        {
+          _id: storeId,
+          "potions.potionName": potionName,
+          "ingredients.ingredientName": ingredientOwned.ingredientName,
+        },
+        { $inc: { "ingredients.$.owned": -1, "potions.$.owned": +1 } },
+        { new: true }
+      );
+      return updated_store;
+    },
   },
 };
 

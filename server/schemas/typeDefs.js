@@ -67,6 +67,7 @@ const typeDefs = gql`
     createStore(storeName: String!, username: String!): Store
     buyIngredient(ingredientName: String!, storeId: ID!): Store
     sellPotion(potionName: String!, storeId: ID!): Store
+    brewPotion(potionName: String!, storeId: ID!): Store
   }
 `;
 
