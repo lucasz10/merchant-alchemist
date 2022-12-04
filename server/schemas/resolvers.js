@@ -91,18 +91,30 @@ const resolvers = {
     },
     sellPotion: async (parent, { potionName, storeId }) => {
       const potion = await Potion.findOne({ potionName: potionName });
-      const price = potion.sellPrice;
-      const store = await Store.findOne({ _id: storeId });
-      const goldCount = store.goldCount;
-      store.findOneAndUpdate(
-        { _id: storeId },
-        { $inc: { goldCount: goldCount, goldPrice: price } },
-        { new: true },
-        { ingredientName: potionId },
-        { $inc: { owned: -1 } },
+      const store = await Store.findOne({
+        _id: storeId,
+        "potions.potionName": potionName,
+      });
+
+      const potionsArray = store.potions;
+      const potionSold = potionsArray.filter(
+        (potion) => potion.potionName === potionName
+      )[0];
+
+      console.log(potionSold);
+
+      if (potionSold.owned < 1) {
+        return { message: "No potions to sell!" };
+      }
+
+      const { sellPrice } = potion;
+
+      const updated_store = await Store.findOneAndUpdate(
+        { _id: storeId, "potions.potionName": potionName },
+        { $inc: { goldCount: +sellPrice, "potions.$.owned": -1 } },
         { new: true }
       );
-      return { potion, store };
+      return updated_store;
     },
     // brewPotion: async (parent, { potionName, storeId }) => {
     //   const potion = await Potion.findOne({ potionName: potionName });
