@@ -31,7 +31,7 @@ const names =
         'Leon',
         'Denton'
     ]
-}
+};
 
 const dialogue_options =
 {

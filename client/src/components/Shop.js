@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import background from '../assets/backgrounds/shop.png';
 import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
@@ -6,6 +7,8 @@ import generateScenario from '../utils/scenario_generator';
 import Navigation from './nav-header/Navigation';
 
 const Shop = () => {
+  // Navigate to set path `/path`
+  const navigate = useNavigate();
 
   const style = {
     backgroundImage: `url(${background})`,
@@ -78,6 +81,9 @@ const Shop = () => {
     // Reset currently selected potion and increment the scenario to the next patron
     setPotion({ _id: '', potionName: '', desc: '', owned: 0 });
     setOrder(order + 1);
+
+    // Exit the shop and return to Main Menu if there are no more patrons left
+    if (order >= scenarioPatrons.length - 1) navigate('/main');
   }
 
   return (
