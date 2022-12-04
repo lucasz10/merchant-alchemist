@@ -29,9 +29,30 @@ const resolvers = {
   // Changing the information in the database
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
+      // Initialize new user
       const user = await User.create({ username, email, password });
+
+      const ingredients = await Ingredient.find();
+      const initial_ingredients = ingredients.map(({ ingredientName, desc }) => {return { ingredientName, desc, owned: 0 }});
+
+      const potions = await Potion.find();
+      const initial_potions = potions.map(({ potionName, desc }) => {return { potionName, desc, owned: 0 }});
+
+      // Initialize new store
+      const store = await Store.create({
+        storeName: `${username}'s Store`,
+        storeOwner: username,
+        ingredients: initial_ingredients,
+        potions: initial_potions
+      });
+
+      const updated_user = await User.findOneAndUpdate(
+        { username: username },
+        { $addToSet: { stores: store._id } }
+      );
+
       const token = signToken(user);
-      return { token, user };
+      return { token, updated_user };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
