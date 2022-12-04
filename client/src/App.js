@@ -15,6 +15,7 @@ import Store from './components/Store';
 import Brewing from './components/Brewing';
 import Shop from './components/Shop';
 import Faq from './components/Faq';
+import StoreProvider from './utils/StoreContext';
 import './App.css';
 
 // Construct our main GraphQL API endpoint
@@ -52,11 +53,11 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login />}
+            element={<StoreProvider><Login /></StoreProvider>}
           />
           <Route
             path="/signup"
-            element={<Signup />}
+            element={<StoreProvider><Signup /></StoreProvider>}
           />
           <Route
             path="/main"
@@ -64,15 +65,15 @@ function App() {
           />
           <Route
             path="/store"
-            element={<Store />}
+            element={<StoreProvider><Store /></StoreProvider>}
           />
           <Route
             path="/brewing"
-            element={<Brewing />}
+            element={<StoreProvider><Brewing /></StoreProvider>}
           />
           <Route
             path="/shop"
-            element={<Shop />}
+            element={<StoreProvider><Shop /></StoreProvider>}
           />
           <Route
             path="/faq"

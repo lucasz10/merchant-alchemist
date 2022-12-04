@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useStore } from '../utils/StoreContext';
 import background from '../assets/backgrounds/shop.png';
 import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
@@ -52,6 +53,9 @@ const Shop = () => {
       owned: 5
     }
   ];
+
+  // Get storeId from StoreContext
+  const { storeId } = useStore();
 
   // Sum total potions owned upon page load and generate scenario based on total potions owned
   const TOTAL_POTIONS_OWNED = data.reduce((num_owned, potion) => num_owned + potion.owned, 0);

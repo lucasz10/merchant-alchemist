@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStore } from '../utils/StoreContext';
 import Navigation from './nav-header/Navigation';
 import Item from './item-icons/item';
 import Potions from './potions-list/Potions';
@@ -53,6 +54,9 @@ const POTIONS_OWNED =
 
 function Brewing()
 {
+    // Get storeId from StoreContext
+    const { storeId } = useStore();
+
     // Track the quantity of each item owned
     const [owned_ingredients, updateQuantities] = useState(INGREDIENTS_OWNED);
 

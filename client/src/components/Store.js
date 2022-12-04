@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStore } from '../utils/StoreContext';
 import { useQuery, useMutation } from '@apollo/client';
 import Navigation from './nav-header/Navigation';
 import Item from './item-icons/item';
@@ -11,13 +12,13 @@ import { BUY_INGREDIENT } from '../utils/mutations';
 
 function Store()
 {
-    // TESTING: Set store ID for testing queries/mutations
-    const STORE_ID = '638bcb66472d50993f6ad222';
+    // Get storeId from StoreContext
+    const { storeId } = useStore();
 
     // GET all ingredients in the database
     const { loading: ingredientsLoading, data: ingredientData } = useQuery(QUERY_INGREDIENTS);
     // GET Gold count for user
-    const { loading: storeLoading, data: storeData } = useQuery(QUERY_GOLDCOUNT, { variables: { storeId: STORE_ID } });
+    const { loading: storeLoading, data: storeData } = useQuery(QUERY_GOLDCOUNT, { variables: { storeId } });
     // PUT transaction purchase
     const [buyIngredient, { error }] = useMutation(BUY_INGREDIENT);
     
@@ -42,7 +43,7 @@ function Store()
         // Make the mutation request and update state when successful
         try {
             const { ingredientName } = selectedItem;
-            const { data } = await buyIngredient({ variables: { ingredientName, storeId: STORE_ID } });
+            const { data } = await buyIngredient({ variables: { ingredientName, storeId } });
             console.log(data);
             const new_gold_count = data.buyIngredient.goldCount;
 
