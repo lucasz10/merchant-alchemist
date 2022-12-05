@@ -31,3 +31,16 @@ export const BUY_INGREDIENT = gql`
     }
   }
 `;
+
+export const BREW_POTION = gql`
+  mutation Mutation($potionName: String!, $storeId: ID!) {
+    brewPotion(potionName: $potionName, storeId: $storeId) {
+      potions {
+        _id
+        desc
+        owned
+        potionName
+      }
+    }
+  }
+`;

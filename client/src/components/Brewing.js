@@ -1,55 +1,14 @@
 import React, { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import Navigation from './nav-header/Navigation';
 import Item from './item-icons/item';
 import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
 import background from '../assets/backgrounds/brewing.png';
 import '../assets/style/menu.css';
-// TESTING: Owned Ingredient Data contained in an array, replace with GET request to database in the future
-const INGREDIENTS_OWNED =
-[
-    {
-        _id: '3',
-        ingredientName: 'Gyrfalcon Feathers',
-        desc: 'Even as it dives, the gyrfalcon never makes a sound.',
-        owned: 3
-    },
-    {
-        _id: '4',
-        ingredientName: 'Crimson Herb',
-        desc: 'Oddly sweet, this herb is often consumed in the wild for a quick burst of energy.',
-        owned: 0
-    },
-    {
-        _id: '5',
-        ingredientName: 'Opal Stone',
-        desc: `Touching this stone to one's head opens the mind, allowing for a greater understanding of the universe.`,
-        owned: 1
-    }
-];
-
-// TESTING: Owned Ingredient Data contained in an array, replace with GET request to database in the future
-const POTIONS_OWNED =
-[
-    {
-        _id: '3',
-        potionName: 'Vigor',
-        desc: 'Restores health.',
-        owned: 5
-    },
-    {
-        _id: '4',
-        potionName: 'Awakening',
-        desc: 'Increases the available mana.',
-        owned: 2
-    },
-    {
-        _id: '5',
-        potionName: 'Silencing',
-        desc: `Silences the user's movements.`,
-        owned: 1
-    }
-];
+// Import potion mutations/queries
+import { QUERY_INVENTORY } from '../utils/queries';
+import { BREW_POTION } from '../utils/mutations';
 
 function Brewing()
 {
@@ -57,7 +16,7 @@ function Brewing()
     const storeId = localStorage.getItem('storeId');
 
     // Track the quantity of each item owned
-    const [owned_ingredients, updateQuantities] = useState(INGREDIENTS_OWNED);
+    const [owned_ingredients, updateQuantities] = useState([]);
 
     // Track ingredients to use for brewing potion
     const [ingredients, setIngredients] = useState([]);
@@ -67,7 +26,22 @@ function Brewing()
     const [potionEffect, setPotionEffect] = useState('');
 
     // Track User's brewed potions
-    const [potions, setPotions] = useState(POTIONS_OWNED);
+    const [potions, setPotions] = useState([]);
+
+    // Query for all of a user's potions
+    const { loading: inventoryLoading, data: inventoryData } = useQuery(QUERY_INVENTORY, { variables: { storeId } });
+
+    // Once potions have been retrieved, set potions and generate scenario
+    React.useEffect(() => {
+        if (!inventoryLoading) {
+            const { store } = inventoryData;
+            const owned_potions = store.potions;
+            const owned_ingredients = store.ingredients;
+            
+            setPotions(owned_potions);
+            updateQuantities(owned_ingredients);
+        }
+    }, [inventoryLoading, inventoryData, updateQuantities, setPotions]);
 
     // Track selected potion
     const [selectedPotion, setPotion] = useState({ _id: '', potionName: '', desc: '', owned: 0 });
@@ -147,14 +121,16 @@ function Brewing()
                     {/* Generate an Item icon for each owned ingredient */}
                     <div className='ingredients'>
                         {owned_ingredients.map((ingredient) => 
+                            ingredient.owned > 0 ? (
                             <div 
                                 key={ingredient.ingredientName} 
                                 style={styles.ingredient}
                                 onClick={() => addIngredient(ingredient)}
                             >
                                 {/* Generate item sprite accessed by the ingredient's name */}
-                                <Item {...Sprites[ingredient.ingredientName]} />
+                                <Item {...{...Sprites[ingredient.ingredientName], amount: ingredient.owned }} />
                             </div>
+                            ) : ('')
                         )}
                     </div>
                 </section>
