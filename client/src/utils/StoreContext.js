@@ -3,14 +3,14 @@ import React, { useState, useContext } from 'react';
 export const StoreContext = React.createContext();
 export const useStore = () => useContext(StoreContext);
 
+// NOTE: Context does not work currently, state is unable to change dynamically
 export default function StoreProvider({ children })
 {
-    // TESTING: Store ID obtained from user login/signup
-    // const store = useRef('638c09ae51336820bcd95f18');
-    const [storeId, setStoreId] = useState('638c09ae51336820bcd95f18');
-
+    const [storeId, setStoreId] = useState('');
+    const [username, setUsername] = useState('');
+    
     return (
-        <StoreContext.Provider value={{ storeId, setStoreId }}>
+        <StoreContext.Provider value={{ username, storeId }}>
             {children}
         </StoreContext.Provider>
     )

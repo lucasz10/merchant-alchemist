@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import background from '../assets/backgrounds/landing.png';
-import { useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { QUERY_USER_STORES } from '../utils/queries';
 import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
 const Login = () => {
+  // Query user's store data
+  const [getStores] = useLazyQuery(QUERY_USER_STORES);
 
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
@@ -29,7 +32,14 @@ const Login = () => {
       const { data } = await login({
         variables: { ...formState },
       });
-
+      
+      // Get user's store data with their username
+      const username = data.login.user.username;
+      const { data: storesData } = await getStores({ variables: { username } });
+      // Save store id to local storage
+      const store_id = storesData.user.stores[0]._id;
+      localStorage.setItem('storeId', store_id);
+      
       Auth.login(data.login.token);
     } catch (e) {
       console.error(e);

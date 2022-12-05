@@ -1,5 +1,15 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_USER_STORES = gql`
+  query Query($username: String!) {
+    user(username: $username) {
+      stores {
+        _id
+      }
+    }
+  }
+`;
+
 export const QUERY_INGREDIENTS = gql`
   query ingredients {
     ingredients {

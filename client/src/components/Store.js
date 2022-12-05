@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useStore } from '../utils/StoreContext';
 import { useQuery, useMutation } from '@apollo/client';
 import Navigation from './nav-header/Navigation';
 import Item from './item-icons/item';
@@ -12,8 +11,8 @@ import { BUY_INGREDIENT } from '../utils/mutations';
 
 function Store()
 {
-    // Get storeId from StoreContext
-    const { storeId } = useStore();
+    // Get storeId from localStorage
+    const storeId = localStorage.getItem('storeId');
 
     // GET all ingredients in the database
     const { loading: ingredientsLoading, data: ingredientData } = useQuery(QUERY_INGREDIENTS);
