@@ -12,7 +12,7 @@ import { BUY_INGREDIENT } from '../utils/mutations';
 function Store()
 {
     // TESTING: Set store ID for testing queries/mutations
-    const STORE_ID = '638bcb66472d50993f6ad222';
+    const STORE_ID = '638d2c65567b620022209609';
 
     // GET all ingredients in the database
     const { loading: ingredientsLoading, data: ingredientData } = useQuery(QUERY_INGREDIENTS);
