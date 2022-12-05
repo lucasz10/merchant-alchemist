@@ -43,7 +43,7 @@ function Store()
         try {
             const { ingredientName } = selectedItem;
             const { data } = await buyIngredient({ variables: { ingredientName, storeId } });
-            console.log(data);
+            
             const new_gold_count = data.buyIngredient.goldCount;
 
             // Update gold count from response and reset selected item and quantity

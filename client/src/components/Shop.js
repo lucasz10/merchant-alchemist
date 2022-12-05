@@ -8,7 +8,7 @@ import generateScenario from '../utils/scenario_generator';
 import Navigation from './nav-header/Navigation';
 // Import potion mutations/queries
 import { QUERY_INVENTORY } from '../utils/queries';
-import { BUY_INGREDIENT } from '../utils/mutations';
+import { SELL_POTION } from '../utils/mutations';
 
 const Shop = () => {
   // Navigate to set path `/path`
@@ -25,6 +25,9 @@ const Shop = () => {
 
   // Get storeId from localStorage
   const storeId = localStorage.getItem('storeId');
+
+  // POST sell potion request
+  const [sellPotion, { error }] = useMutation(SELL_POTION);
   
   // Hold the scenario data and track order of patrons in scenario
   const [scenario, setScenario] = useState([]);
@@ -46,7 +49,7 @@ const Shop = () => {
       setPotions(all_potions);
       
       // Sum total potions owned upon page load and generate scenario based on total potions owned
-      const TOTAL_POTIONS_OWNED = all_potions.reduce((num_owned, potion) => num_owned + potion.owned, 0) + 7;
+      const TOTAL_POTIONS_OWNED = all_potions.reduce((num_owned, potion) => num_owned + potion.owned, 0);
       // If there are no potions, return to main menu
       if (TOTAL_POTIONS_OWNED === 0) navigate('/main');
       
@@ -65,11 +68,18 @@ const Shop = () => {
   // Move to next adventurer in the scenario when the order has been changed
   React.useEffect(() => setAdventurer(scenario[order]), [scenario, order]);
 
-  const handlePotionSelling = () =>
+  const handlePotionSelling = async () =>
   {
     // Check that there are sufficient potions to sell
     if (selectedPotion.owned < 1) return;
 
+    // Request to sell selected potion
+    const { data: updatedInventoryData } = await sellPotion({ variables: { potionName: selectedPotion.potionName, storeId } });
+
+    // Update the owned potions using the response
+    const updated_potions = updatedInventoryData.sellPotion.potions;
+    setPotions(updated_potions);
+    
     // Reset currently selected potion and increment the scenario to the next patron
     setPotion({ _id: '', potionName: '', desc: '', owned: 0 });
     setOrder(order + 1);

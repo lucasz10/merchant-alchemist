@@ -50,3 +50,22 @@ export const BREW_POTION = gql`
     }
   }
 `;
+
+export const SELL_POTION = gql`
+  mutation SellPotion($potionName: String!, $storeId: ID!) {
+    sellPotion(potionName: $potionName, storeId: $storeId) {
+      potions {
+        _id
+        desc
+        owned
+        potionName
+      }
+      ingredients {
+        _id
+        desc
+        ingredientName
+        owned
+      }
+    }
+  }
+`;
