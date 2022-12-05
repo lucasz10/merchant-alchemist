@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 import background from '../assets/backgrounds/shop.png';
 import Potions from './potions-list/Potions';
 import Sprites from '../assets/sprites';
 import generateScenario from '../utils/scenario_generator';
 import Navigation from './nav-header/Navigation';
+// Import potion mutations/queries
+import { QUERY_INVENTORY } from '../utils/queries';
+import { BUY_INGREDIENT } from '../utils/mutations';
 
 const Shop = () => {
   // Navigate to set path `/path`
@@ -19,53 +23,38 @@ const Shop = () => {
     height: '100vh',
   };
 
-  // TODO: Query for all of a user's potions
-  const data = [
-    {
-      _id: '1',
-      potionName: 'Awakening',
-      desc: 'Increases the available mana',
-      owned: 1
-    },
-    {
-      _id: '2',
-      potionName: 'Endurance',
-      desc: 'Restores Stamina',
-      owned: 2
-    },
-    {
-      _id: '3',
-      potionName: 'Wisdom',
-      desc: 'Restores Mana',
-      owned: 3
-    },
-    {
-      _id: '4',
-      potionName: 'Vigor',
-      desc: 'Restores Health',
-      owned: 4
-    },
-    {
-      _id: '5',
-      potionName: 'Strength',
-      desc: 'Increases physical attack',
-      owned: 5
-    }
-  ];
-
   // Get storeId from localStorage
   const storeId = localStorage.getItem('storeId');
   
-  // Sum total potions owned upon page load and generate scenario based on total potions owned
-  const TOTAL_POTIONS_OWNED = data.reduce((num_owned, potion) => num_owned + potion.owned, 0);
-  const scenarioPatrons = generateScenario(TOTAL_POTIONS_OWNED);
-
   // Hold the scenario data and track order of patrons in scenario
-  const scenario = React.useRef(scenarioPatrons);
+  const [scenario, setScenario] = useState([]);
   const [order, setOrder] = useState(0);
 
   // Track current adventurer, starting at the scenario's first patron
-  const [adventurer, setAdventurer] = useState(scenario.current[0]);
+  const [adventurer, setAdventurer] = useState({ occupation: '', name: '', dialogue: '' });
+
+  // Track User's brewed potions and total number of potions
+  const [potions, setPotions] = useState([]);
+
+  // Query for all of a user's potions
+  const { loading: potionsLoading, data: potionData } = useQuery(QUERY_INVENTORY, { variables: { storeId } });
+
+  // Once potions have been retrieved, set potions and generate scenario
+  React.useEffect(() => {
+    if (!potionsLoading && scenario.length === 0) {
+      const all_potions = potionData.store.potions;
+      setPotions(all_potions);
+      
+      // Sum total potions owned upon page load and generate scenario based on total potions owned
+      const TOTAL_POTIONS_OWNED = all_potions.reduce((num_owned, potion) => num_owned + potion.owned, 0) + 7;
+      // If there are no potions, return to main menu
+      if (TOTAL_POTIONS_OWNED === 0) navigate('/main');
+      
+      const scenarioPatrons = generateScenario(TOTAL_POTIONS_OWNED);
+      setScenario(scenarioPatrons);
+      setAdventurer(scenarioPatrons[0]);
+    }
+  }, [potionsLoading, potionData, scenario, setPotions, setScenario, setAdventurer, navigate]);
 
   // Track selected potion
   const [selectedPotion, setPotion] = useState({ _id: '', potionName: '', desc: '', owned: 0 });
@@ -74,7 +63,7 @@ const Shop = () => {
   console.log('scenario: ', scenario, '\n', 'order: ', order, '\n', 'adventurer: ', adventurer, '\n');
 
   // Move to next adventurer in the scenario when the order has been changed
-  React.useEffect(() => setAdventurer(scenario.current[order]), [order]);
+  React.useEffect(() => setAdventurer(scenario[order]), [scenario, order]);
 
   const handlePotionSelling = () =>
   {
@@ -86,7 +75,7 @@ const Shop = () => {
     setOrder(order + 1);
 
     // Exit the shop and return to Main Menu if there are no more patrons left
-    if (order >= scenarioPatrons.length - 1) navigate('/main');
+    if (order >= scenario.length - 1) navigate('/main');
   }
 
   const handlePotionDecline = () =>
@@ -96,16 +85,16 @@ const Shop = () => {
     setOrder(order + 1);
 
     // Exit the shop and return to Main Menu if there are no more patrons left
-    if (order >= scenarioPatrons.length - 1) navigate('/main');
+    if (order >= scenario.length - 1) navigate('/main');
   }
 
   return (
     <div className="container" style={style}>
       <Navigation />
       <div className="row pt-5">
-          <div className="col-2"/>
-
+        <div className="col-2"/>
           <div className='col-2'>
+            {adventurer === undefined || adventurer.occupation === '' ? <div>Preparing your shop...</div> : (
             <div className="card text-center">
               <h5 className="card-header">{adventurer.name} the {adventurer.occupation.charAt(0).toUpperCase() + adventurer.occupation.slice(1)} {`Adventurer #: ${order + 1}`}</h5>
               <img src={Sprites[adventurer.occupation].img} alt={Sprites[adventurer.occupation].alt} className="knight mx-auto"/>
@@ -121,25 +110,26 @@ const Shop = () => {
                 </div>
               </div>
             </div>
-          </div>
+            )}
+        </div>
 
-          <div className='col-6'>
-            <div className="card">
-              <h5 className="card-header text-center">Your Inventory</h5>
-              <Potions handlePotionSelection={handlePotionSelection} potions={data} />
-              <div className="card-footer text-center">
-                <small className="text-muted">Selected Potion: {selectedPotion.potionName}</small>
-                <br />
-                <small className="text-muted">Description: {selectedPotion.desc}</small>
-              </div>
-            </div>
+        <div className='col-6'>
+          <div className="card">
+            <h5 className="card-header text-center">Your Inventory</h5>
+            {potions.length === 0 ? <div>Getting your potions ready...</div> : (
+              <div>
+                <Potions handlePotionSelection={handlePotionSelection} potions={potions} />
+                <div className="card-footer text-center">
+                  <small className="text-muted">Selected Potion: {selectedPotion.potionName}</small>
+                  <br />
+                  <small className="text-muted">Description: {selectedPotion.desc}</small>
+                </div>
+              </div>)}
           </div>
-
-          
+        </div>
       </div>
     </div>
-
-  )
+  );
 }
 
 export default Shop;

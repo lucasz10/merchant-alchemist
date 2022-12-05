@@ -30,10 +30,20 @@ export const QUERY_GOLDCOUNT = gql`
 `;
 
 export const QUERY_INVENTORY = gql`
-  query store($storeId: ID!) {
+  query Query($storeId: ID!) {
     store(storeId: $storeId) {
-      potions
-      ingredients
+      potions {
+        _id
+        desc
+        owned
+        potionName
+      }
+      ingredients {
+        _id
+        desc
+        ingredientName
+        owned
+      }
     }
   }
 `;
