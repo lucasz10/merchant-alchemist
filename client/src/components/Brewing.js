@@ -15,6 +15,9 @@ function Brewing()
     // Get storeId from localStorage
     const storeId = localStorage.getItem('storeId');
 
+    // POST brew potion request
+    const [brewPotion, { error }] = useMutation(BREW_POTION);
+
     // Track the quantity of each item owned
     const [owned_ingredients, updateQuantities] = useState([]);
 
@@ -71,7 +74,7 @@ function Brewing()
     }, [ingredients]);
 
     // Verify transaction and make a server request to brew the potion
-    const handlePotionBrewing = () => {
+    const handlePotionBrewing = async () => {
         // Reject if there are no ingredients selected
         if (ingredients.length <= 0) return;
 
@@ -87,13 +90,17 @@ function Brewing()
         else 
         {
             console.log('You made a potion!');
+            // Request to brew potion with the determined potion effect
+            const { data: updatedInventoryData } = await brewPotion({ variables: { potionName: potionEffect, storeId }})
+            
+            // Update the ingredient quantities and brewed potions using the response from the server
+            const updated_ingredients = updatedInventoryData.brewPotion.ingredients;
+            const updated_potions = updatedInventoryData.brewPotion.potions;
+            updateQuantities(updated_ingredients);
+            setPotions(updated_potions);
 
             // Clear out the currently selected ingredients
             setIngredients([]);
-            
-            // TODO: Update the ingredient quantities and brewed potions using the response from the server
-            // updateQuantities()
-            // setPotions()
         }
     }
 

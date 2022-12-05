@@ -41,6 +41,12 @@ export const BREW_POTION = gql`
         owned
         potionName
       }
+      ingredients {
+        _id
+        desc
+        ingredientName
+        owned
+      }
     }
   }
 `;
