@@ -29,6 +29,7 @@ function Potions({ handlePotionSelection, potions })
     return (
         <div className='potion_list_container' style={styles.potion_list_container}>
             {potions.map(({ _id, potionName, desc, owned }) => 
+                owned > 0 ? (
                 <div 
                     key={potionName} 
                     value={potionName}
@@ -37,8 +38,9 @@ function Potions({ handlePotionSelection, potions })
                     style={{ display: 'inline-block' }}
                 >
                     <Item {...{ ...Sprites[potionName], amount: owned }} />
-                </div>)
-            }
+                </div>
+                ) : ('')
+            )}
         </div>
     );
 }

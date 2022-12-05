@@ -11,13 +11,13 @@ import { BUY_INGREDIENT } from '../utils/mutations';
 
 function Store()
 {
-    // TESTING: Set store ID for testing queries/mutations
-    const STORE_ID = '638d2c65567b620022209609';
+    // Get storeId from localStorage
+    const storeId = localStorage.getItem('storeId');
 
     // GET all ingredients in the database
     const { loading: ingredientsLoading, data: ingredientData } = useQuery(QUERY_INGREDIENTS);
     // GET Gold count for user
-    const { loading: storeLoading, data: storeData } = useQuery(QUERY_GOLDCOUNT, { variables: { storeId: STORE_ID } });
+    const { loading: storeLoading, data: storeData } = useQuery(QUERY_GOLDCOUNT, { variables: { storeId } });
     // PUT transaction purchase
     const [buyIngredient, { error }] = useMutation(BUY_INGREDIENT);
     
@@ -42,8 +42,8 @@ function Store()
         // Make the mutation request and update state when successful
         try {
             const { ingredientName } = selectedItem;
-            const { data } = await buyIngredient({ variables: { ingredientName, storeId: STORE_ID } });
-            console.log(data);
+            const { data } = await buyIngredient({ variables: { ingredientName, storeId } });
+
             const new_gold_count = data.buyIngredient.goldCount;
 
             // Update gold count from response and reset selected item and quantity
