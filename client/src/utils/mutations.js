@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const BUY_INGREDIENT = gql`
-  mutation Mutation($ingredientName: String!, $storeId: ID!) {
-    buyIngredient(ingredientName: $ingredientName, storeId: $storeId) {
+  mutation Mutation($ingredientName: String!, $storeId: ID!, $quantity: Int) {
+    buyIngredient(ingredientName: $ingredientName, storeId: $storeId, quantity: $quantity) {
       goldCount
     }
   }
