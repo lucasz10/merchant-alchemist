@@ -69,6 +69,7 @@ function Store()
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       maxWidth: '100vw',
+      height: '100vh',
     };
 
     return (
