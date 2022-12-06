@@ -24,6 +24,10 @@
   margin-right: 2%;
 }
 
+#login-text:hover {
+  color:rgb(136, 102, 42);
+}
+
 .potion {
   display: inline-block;
 }
