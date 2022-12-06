@@ -24,13 +24,8 @@
   margin-right: 2%;
 }
 
-#tooltip {
-  margin-left: -55%;
-}
-
-.knight {
-  width: 200px;
-  height: 200px;
+#login-text:hover {
+  color:rgb(136, 102, 42);
 }
 
 .potion {

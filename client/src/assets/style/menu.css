@@ -2,15 +2,26 @@
 {
     margin: 0 auto;
     width: fit-content;
-    background-color: #fff;
+    background-color: transparent;
     padding: 2vh;
     border-radius: 10px;
 }
 
 .nav_heading
 {
-    color: #000;
+    color: white;
     text-align: center;
+}
+
+.nav_link
+{
+    color: white;
+    text-decoration: none;
+}
+
+.nav_link:hover {
+  color: white;
+  text-decoration: underline;
 }
 
 #brewing_display,

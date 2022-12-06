@@ -96,7 +96,7 @@ const Login = () => {
             </div>
             )}
             <div className="text-center">
-              <button type="submit" className="btn btn-color px-5 mb-1 w-100 card-text" onClick={handleFormSubmit}>Login</button>
+              <button type="submit" className="btn btn-color px-5 mb-1 w-100 card-text" id="login-text" onClick={handleFormSubmit}>Login</button>
             </div>
             <div className="text-center">
               <Link to="/signup"  className="text-center">Need to create an account?</Link>
