@@ -77,6 +77,7 @@ const resolvers = {
 
       return { token, user };
     },
+    // Creates a store with all possible ingredients and potions initialized
     createStore: async (parent, { storeName, username }) => {
       const ingredients = await Ingredient.find();
       const initial_ingredients = ingredients.map(
@@ -104,6 +105,7 @@ const resolvers = {
 
       return store;
     },
+    // Handles model updates when a user buys ingredients
     buyIngredient: async (parent, { ingredientName, storeId }) => {
       const ingredient = await Ingredient.findOne({
         ingredientName: ingredientName,
@@ -130,6 +132,7 @@ const resolvers = {
 
       return updated_store;
     },
+    // Handles model updates when a user wishes to sell potions
     sellPotion: async (parent, { potionName, storeId }) => {
       const potion = await Potion.findOne({ potionName: potionName });
       const store = await Store.findOne({
@@ -137,13 +140,13 @@ const resolvers = {
         "potions.potionName": potionName,
       });
 
+      // Filters through potions in the store model to find a match
       const potionsArray = store.potions;
       const potionSold = potionsArray.filter(
         (potion) => potion.potionName === potionName
       )[0];
 
-      console.log(potionSold);
-
+      // Makes sure there is at least 1 potion to sell
       if (potionSold.owned < 1) {
         return { message: "No potions to sell!" };
       }
@@ -157,6 +160,7 @@ const resolvers = {
       );
       return updated_store;
     },
+    // Handles the model updates when a user wishes to brew a potion
     brewPotion: async (parent, { potionName, storeId }) => {
       const potion = await Potion.findOne({ potionName: potionName });
       const store = await Store.findOne({ _id: storeId });
@@ -165,21 +169,24 @@ const resolvers = {
       if (!potion) return `No potion with name: ${potionName}`;
       if (!store) return `No store with ID: ${storeId}`;
 
+      // Since there was potential implementation for an array of required ingredients, that's how the Potion model was initialized
+      // For now, potions only require 1 ingredient, so we extract that ingredient from that array
       const req_ingredient = potion.reqIngredients[0];
 
+      // Filters through store ingredients to find a match
       const ingredientsArray = store.ingredients;
       const ingredientOwned = ingredientsArray.filter(
         (ingredient) => ingredient.ingredientName === req_ingredient
       )[0];
 
-      console.log(ingredientOwned);
-
+      // Catch to make sure there's ingredients owned
       if (ingredientOwned.owned < 1) {
         return {
           message: `Not enough of ${ingredientOwned.ingredientName} to brew potion!`,
         };
       }
 
+      // Updates the store model to remove from the ingredient used, and add to a potion that was newly brewed
       const updated_store = await Store.findOneAndUpdate(
         {
           _id: storeId,
