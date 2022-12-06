@@ -112,6 +112,7 @@ function Brewing()
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             maxWidth: '100vw',
+            height: '100vh',
         }
     };
 
