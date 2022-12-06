@@ -6,16 +6,23 @@ import { Link } from 'react-router-dom';
 const Faq = () => {
 
   const style = {
-    backgroundImage: `url(${background})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    'max-width': '100vw',
-    height: '100vh',
+    background: {
+      backgroundImage: `url(${background})`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      'max-width': '100vw',
+      height: '100vh',
+    },
+    card: {
+      backgroundColor: "transparent",
+      border: "none",
+      margin: ""
+    }
   };
 
   return (
-    <div className="container" style={style}>
+    <div className="container" style={style.background}>
       <Navigation />
 
       <div className="row pt-5">
@@ -23,7 +30,7 @@ const Faq = () => {
         <div className='col-8'>
           <div className="card">
             <div id="accordion">
-              <div class="card">
+              <div class="card" style={style.card}>
                 <div class="card-header" id="headingOne">
                   <h5 class="mb-0">
                     <Link to="/store" class="btn btn-link">Purchase Ingredients</Link> 
@@ -35,9 +42,9 @@ const Faq = () => {
                   </div>
                 </div>
               </div>
-              <div class="card">
+              <div class="card" style={style.card}>
                 <div class="card-header" id="headingTwo">
-                  <h5 class="mb-0">
+                  <h5 className="mb-0">
                   <Link to="/brewing" class="btn btn-link">Arcanium</Link> 
                   </h5>
                 </div>
@@ -47,7 +54,7 @@ const Faq = () => {
                   </div>
                 </div>
               </div>
-              <div class="card">
+              <div class="card" style={style.card}>
                 <div class="card-header" id="headingThree">
                   <h5 class="mb-0">
                     <Link to="/shop" class="btn btn-link">Open Shop</Link> 
