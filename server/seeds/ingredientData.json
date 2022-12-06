@@ -2,7 +2,7 @@
     {
         "ingredientName": "Gold Gel",
         "desc": "A healing substance which restores the body.",
-        "buyPrice": 5
+        "buyPrice": 10
     },
     {
         "ingredientName": "Silver Gel",
@@ -12,7 +12,7 @@
     {
         "ingredientName": "Copper Gel",
         "desc": "A rejuvenating substance which restores the core.",
-        "buyPrice": 10
+        "buyPrice": 5
     },
     {
         "ingredientName": "Crimson Herb",
