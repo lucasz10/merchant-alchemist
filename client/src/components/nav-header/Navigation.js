@@ -6,9 +6,9 @@ const Navigation = () => {
     return (
         <header className="nav_header">
             {/* Returns to the Main Menu on click */}
-            <Link to="/main">
+            <Link to="/main" className='nav_link'>
                 <h1 className="nav_heading">
-                    Back to Main Menu
+                    Main Menu
                 </h1>
             </Link>
         </header>
