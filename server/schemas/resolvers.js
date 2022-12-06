@@ -106,7 +106,7 @@ const resolvers = {
       return store;
     },
     // Handles model updates when a user buys ingredients
-    buyIngredient: async (parent, { ingredientName, storeId }) => {
+    buyIngredient: async (parent, { ingredientName, storeId, quantity }) => {
       const ingredient = await Ingredient.findOne({
         ingredientName: ingredientName,
       });
@@ -118,15 +118,16 @@ const resolvers = {
 
       const { buyPrice } = ingredient;
       const { goldCount } = store;
+      const total_cost = buyPrice * quantity;
 
       // Check that ingredient can be purchased
-      if (goldCount < buyPrice) {
+      if (goldCount < total_cost) {
         return { message: "Not enough gold to buy this ingredient" };
       }
 
       const updated_store = await Store.findOneAndUpdate(
         { _id: storeId, "ingredients.ingredientName": ingredientName },
-        { $inc: { goldCount: -buyPrice, "ingredients.$.owned": +1 } },
+        { $inc: { goldCount: -total_cost, "ingredients.$.owned": +quantity } },
         { new: true }
       );
 

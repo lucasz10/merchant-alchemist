@@ -35,14 +35,14 @@ function Store()
     // Verify transaction and make a server request to purchase the item
     const handleItemPurchase = async (event) => {
         event.preventDefault();
+        const { ingredientName, quantity } = selectedItem;
 
         // Reject if there are no items to be purchased or current gold is insufficient
         if (selectedItem.quantity <= 0 || totalCost > gold_count) return;
 
         // Make the mutation request and update state when successful
         try {
-            const { ingredientName } = selectedItem;
-            const { data } = await buyIngredient({ variables: { ingredientName, storeId } });
+            const { data } = await buyIngredient({ variables: { ingredientName, storeId, quantity } });
 
             const new_gold_count = data.buyIngredient.goldCount;
 
@@ -114,7 +114,7 @@ function Store()
                             <button type='button' onClick={decrement_quantity}>-</button>
                         </div>
                         <button type='button' id='purchase' onClick={handleItemPurchase}>
-                            Purchase{selectedItem.quantity > 0 ? ` (x${selectedItem.quantity}) ${selectedItem.ingredientName}?` : ''}
+                            Purchase{selectedItem.quantity > 0 ? ` (x${selectedItem.quantity}) ${selectedItem.ingredientName} for ${totalCost} gold?` : ''}
                         </button>
                     </div>
                 </section>
