@@ -2,61 +2,61 @@
     {
         "ingredientName": "Gold Gel",
         "desc": "A healing substance which restores the body.",
-        "buyPrice": 1
+        "buyPrice": 10
     },
     {
         "ingredientName": "Silver Gel",
         "desc": "A relaxing substance which restores the mind.",
-        "buyPrice": 1
+        "buyPrice": 7
     },
     {
         "ingredientName": "Copper Gel",
         "desc": "A rejuvenating substance which restores the core.",
-        "buyPrice": 1
+        "buyPrice": 5
     },
     {
         "ingredientName": "Crimson Herb",
         "desc": "Oddly sweet, this herb is often consumed in the wild for a quick burst of energy.",
-        "buyPrice": 1
+        "buyPrice": 7
     },
     {
         "ingredientName": "Gyrfalcon Feathers",
         "desc": "Even as it dives, the gyrfalcon never makes a sound.",
-        "buyPrice": 1
+        "buyPrice": 10
     },
     {
         "ingredientName": "Moon Pearls",
         "desc": "These precious gems appear translucent under a moonlit sky, yet shimmer only faintly otherwise.",
-        "buyPrice": 1
+        "buyPrice": 12
     },
     {
         "ingredientName": "Amber Powder",
         "desc": "An empowering aura appears to surround it.",
-        "buyPrice": 1
+        "buyPrice": 7
     },
     {
         "ingredientName": "Ironwood Acorn",
         "desc": "Originating from the kingdom of Valesia, these nuts are hard to crack!",
-        "buyPrice": 1
+        "buyPrice": 10
     },
     {
         "ingredientName": "Dragon Scale",
         "desc": "A dragon’s scales are said to hold the courage of the warrior who vanquished them.",
-        "buyPrice": 1
+        "buyPrice": 12
     },
     {
         "ingredientName": "Three-eyed Frog",
         "desc": "For some reason, staring at this toad is oddly calming.",
-        "buyPrice": 1
+        "buyPrice": 10
     },
     {
         "ingredientName": "Opal Stone",
         "desc": "Touching this stone to one’s head opens the mind, allowing for a greater understanding of the universe.",
-        "buyPrice": 1
+        "buyPrice": 12
     },
     {
         "ingredientName": "Mandrake Root",
         "desc": "It appears to be whispering old incantations, none of which that can be discerned.",
-        "buyPrice": 1
+        "buyPrice": 15
     }
 ]

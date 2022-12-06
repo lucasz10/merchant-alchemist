@@ -3,72 +3,72 @@
         "potionName": "Vigor",
         "desc": "Restores Health",
         "reqIngredients": "Gold Gel",
-        "sellPrice": 1
+        "sellPrice": 14
     },
     {
         "potionName": "Wisdom",
         "desc": "Restores Mana",
         "reqIngredients": "Silver Gel",
-        "sellPrice": 1
+        "sellPrice": 10
     },
     {
         "potionName": "Endurance",
         "desc": "Restores Stamina",
         "reqIngredients": "Copper Gel",
-        "sellPrice": 1
+        "sellPrice": 7
     },
     {
         "potionName": "Swiftness",
         "desc": "Increases Movement Speed",
         "reqIngredients": "Crimson Herb",
-        "sellPrice": 1
+        "sellPrice": 10
     },
     {
         "potionName": "Silencing",
         "desc": "Silences the user's movements",
         "reqIngredients": "Gyrfalcon Feathers",
-        "sellPrice": 1
+        "sellPrice": 12
     },
     {
         "potionName": "Vanishing",
         "desc": "Turns the user temporarily invisible",
         "reqIngredients": "Moon Pearls",
-        "sellPrice": 1
+        "sellPrice": 15
     },
     {
         "potionName": "Strength",
         "desc": "Increases physical attack",
         "reqIngredients": "Amber Powder",
-        "sellPrice": 1
+        "sellPrice": 10
     },
     {
         "potionName": "Resilience",
         "desc": "Provides greater damage resistance",
         "reqIngredients": "Ironwood Acorn",
-        "sellPrice": 1
+        "sellPrice": 10
     },
     {
         "potionName": "Belligerence",
         "desc": "Enables the user to rapidly attack",
         "reqIngredients": "Dragon Scale",
-        "sellPrice": 1
+        "sellPrice": 15
     },
     {
         "potionName": "Awakening",
         "desc": "Increases the available mana",
         "reqIngredients": "Three-eyed Frog",
-        "sellPrice": 1
+        "sellPrice": 10
     },
     {
         "potionName": "Insight",
         "desc": "Reduces the time to cast spells",
         "reqIngredients": "Opal Stone",
-        "sellPrice": 1
+        "sellPrice": 12
     },
     {
         "potionName": "Brilliance",
         "desc": "Significantly improves the effectiveness of magic spells",
         "reqIngredients": "Mandrake Root",
-        "sellPrice": 1
+        "sellPrice": 15
     }
 ]
