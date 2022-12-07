@@ -8,6 +8,7 @@
 - [Screenshot](#screenshot)
 - [Features](#features)
 - [Contribution](#contribution)
+- [Acknowledgements](#acknowledgements)
 - [Heroku](#link-to-deployed-heroku-application)
 
 ## User Story
@@ -57,6 +58,11 @@
  * [Marion Sy](https://github.com/marionsy)
  * [Zachary Lucas](https://github.com/lucasz10)
  * [Trey Bach](https://github.com/TreyMBach)
+
+## Acknowledgements
+ Special thanks to [itch.io](https://itch.io/) for providing free to use assets including:
+ * [Lornn](https://lornn.itch.io/) for their [Witches & Wizards Background](https://lornn.itch.io/witches-wizards-backgrounds)
+ * [Free Game Assets](https://free-game-assets.itch.io/) for their [Free Assassin, Mage, Viking Game Heroes Pixel Art](https://free-game-assets.itch.io/free-assassin-mage-viking-game-heroes-pixel-art)
 
 ## Link to deployed heroku application:
 
