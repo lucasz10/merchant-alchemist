@@ -167,23 +167,21 @@ const resolvers = {
       const store = await Store.findOne({ _id: storeId });
 
       // Check that ingredient and store exist in the database
-      if (!potion) return `No potion with name: ${potionName}`;
-      if (!store) return `No store with ID: ${storeId}`;
+      if (!potion) return { message: `No potion with name: ${potionName}` };
+      if (!store) return { message: `No store with ID: ${storeId}` };
 
       // Since there was potential implementation for an array of required ingredients, that's how the Potion model was initialized
-      // For now, potions only require 1 ingredient, so we extract that ingredient from that array
-      const req_ingredient = potion.reqIngredients[0];
-
-      // Filters through store ingredients to find a match
-      const ingredientsArray = store.ingredients;
-      const ingredientOwned = ingredientsArray.filter(
-        (ingredient) => ingredient.ingredientName === req_ingredient
-      )[0];
+      // For now, potions only require 1 ingredient, so we extract that ingredient from that array through deconstruction
+      const [ req_ingredientName ] = potion.reqIngredients;
+      
+      // Get all ingredients in the store, then find the ingredient by name
+      const { ingredients } = store;
+      const [ required_ingredient ] = ingredients.filter(({ ingredientName }) => ingredientName === req_ingredientName);
 
       // Catch to make sure there's ingredients owned
-      if (ingredientOwned.owned < 1) {
+      if (required_ingredient.owned < 1) {
         return {
-          message: `Not enough of ${ingredientOwned.ingredientName} to brew potion!`,
+          message: `Not enough of ${required_ingredient.ingredientName} to brew potion!`,
         };
       }
 
@@ -192,7 +190,7 @@ const resolvers = {
         {
           _id: storeId,
           "potions.potionName": potionName,
-          "ingredients.ingredientName": ingredientOwned.ingredientName,
+          "ingredients.ingredientName": required_ingredient.ingredientName,
         },
         { $inc: { "ingredients.$.owned": -1, "potions.$.owned": +1 } },
         { new: true }
