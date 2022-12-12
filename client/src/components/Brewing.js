@@ -89,7 +89,6 @@ function Brewing()
         }
         else 
         {
-            console.log('You made a potion!');
             // Request to brew potion with the determined potion effect
             const { data: updatedInventoryData } = await brewPotion({ variables: { potionName: potionEffect, storeId }})
             
